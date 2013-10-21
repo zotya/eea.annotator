@@ -6,7 +6,9 @@ EEA Annotator
 .. image:: http://ci.eionet.europa.eu/job/eea.annotator-plone4/badge/icon
   :target: http://ci.eionet.europa.eu/job/eea.annotator-plone4/lastBuild
 
-EEA Annotator
+EEA Annotator is the Plone integration of http://okfnlabs.org/annotator/ which
+allows your editors to easily collaborate on a Plone document by adding
+annotations (inline comments) to it.
 
 Contents
 ========
@@ -16,9 +18,10 @@ Contents
 Main features
 =============
 
-1.
-2.
-3.
+1. Inline comments on document's text
+2. Workflow aware
+3. Possibility to toggle on/off, to easily read the text without the
+  "highlighting noise".
 
 Install
 =======
