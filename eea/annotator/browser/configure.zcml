@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="eea">
+
+  <browser:resource
+    name="eea.annotator.view.css"
+    file="./css/view.css"
+   />
+
+  <browser:resource
+    name="eea.annotator.view.js"
+    file="./js/view.js"
+   />
+
+  <browser:resourceDirectory
+    name="eea.annotator.images"
+    directory="./img" />
+
+</configure>
