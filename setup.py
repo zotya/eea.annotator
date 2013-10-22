@@ -37,6 +37,7 @@ setup(name=NAME,
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'eea.jquery > 6.6',
       ],
       entry_points="""
       # -*- entry_points -*-
