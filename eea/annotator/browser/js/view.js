@@ -22,6 +22,9 @@ EEA.Annotator = function(context, options){
 EEA.Annotator.prototype = {
   initialize: function(){
     var self = this;
+    if(window.console){
+      console.log('EEA.Annotator initialized');
+    }
   }
 };
 
@@ -35,7 +38,6 @@ jQuery.fn.EEAAnnotator = function(options){
 };
 
 jQuery(document).ready(function(){
-
   var items = jQuery(".eea-annotator");
   if(!items.length){
     return;
@@ -43,5 +45,4 @@ jQuery(document).ready(function(){
 
   var settings = {};
   items.EEAAnnotator(settings);
-
 });

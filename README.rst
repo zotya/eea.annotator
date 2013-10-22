@@ -8,7 +8,7 @@ EEA Annotator
 
 EEA Annotator is the Plone integration of http://okfnlabs.org/annotator/ which
 allows your editors to easily collaborate on a Plone document by adding
-annotations (inline comments) to it.
+annotations (inline comments) on it.
 
 Contents
 ========
@@ -18,10 +18,13 @@ Contents
 Main features
 =============
 
-1. Inline comments on document's text
-2. Workflow aware
-3. Possibility to toggle on/off, to easily read the text without the
-  "highlighting noise".
+1. Inline comments on any webpage.
+2. Portal types aware. Possibility to enable inline comments only for certain
+   content types.
+3. Workflow aware. Possibility to enable inline comments only for certain
+   workflow states.
+4. Dexterity aware. It works also with dexterity content-types.
+5. Contextually disable inline comments.
 
 Install
 =======
@@ -34,22 +37,26 @@ Install
 Getting started
 ===============
 
-1.
-2.
-3.
+1. Go to Plone Site Setup > EEA Annotator Settings and enable inline comments
+   for your content-types (default enabled for Page);
+2. Go to your workspace within Plone Site and add a new object (Page) or user an
+   existing one;
+3. In view mode select text you want to comment on and add an inline comment;
+4. Within edit form > Settings Tab you can contextually disable inline comments.
 
-Dependencies
-============
+Dexterity
+---------
+Dexterity content-types are supported by EEA Annotator. In order to be able
+to contextually disable inline comments you need to add a field called
+disableAnnotator within your Dexterity content-type schema fields
+(Plone Site Setup > Dexterity Content Types > MyCustomType > Fields)
 
-1.
-2.
-3.
 
 Source code
 ===========
 
 - Latest source code (Plone 4 compatible):
-  https://github.com/eea/eea.annotator
+  https://github.com/collective/eea.annotator
 
 
 Copyright and license
@@ -57,7 +64,7 @@ Copyright and license
 The Initial Owner of the Original Code is European Environment Agency (EEA).
 All Rights Reserved.
 
-The EEA Progress Bar (the Original Code) is free software;
+The EEA Annotator (the Original Code) is free software;
 you can redistribute it and/or modify it under the terms of the GNU
 General Public License as published by the Free Software Foundation;
 either version 2 of the License, or (at your option) any later

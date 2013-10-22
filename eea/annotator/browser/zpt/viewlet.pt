@@ -1,0 +1,1 @@
+<div class="eea-annotator" tal:condition="view/available"></div>

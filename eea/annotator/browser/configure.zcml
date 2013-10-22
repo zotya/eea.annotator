@@ -3,6 +3,14 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="eea">
 
+  <browser:viewlet
+    name="eea.annotator"
+    layer="eea.annotator.interfaces.ILayer"
+    manager="plone.app.layout.viewlets.interfaces.IBelowContent"
+    class=".app.viewlet.Annotator"
+    permission="zope2.View"
+    />
+
   <browser:resource
     name="eea.annotator.view.css"
     file="./css/view.css"
