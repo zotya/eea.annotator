@@ -42,8 +42,6 @@ class EEASchemaExtender(object):
         """ Returns provenance list field
         """
         settings = queryAdapter(getSite(), ISettings)
-        ctype = getattr(self.context, 'portal_type', '')
-        allowed = settings.portalTypes or []
-        if ctype in allowed:
+        if not settings.disabled(self.context):
             return self.fields
         return ()

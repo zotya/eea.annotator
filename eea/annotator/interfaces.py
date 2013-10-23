@@ -9,8 +9,12 @@ from eea.annotator.controlpanel.interfaces import ISettings
 # Subtypes
 from eea.annotator.subtypes.interfaces import IAnnotatorAware
 
+# Storage
+from eea.annotator.storage.interfaces import IAnnotatorStorage
+
 __all__ = [
     ILayer.__name__,
     ISettings.__name__,
     IAnnotatorAware.__name__,
+    IAnnotatorStorage.__name__,
 ]

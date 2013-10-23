@@ -34,6 +34,12 @@ def test_suite():
             layer=FUNCTIONAL_TESTING),
         layered(
             doctest.DocFileSuite(
+                'storage/interfaces.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.annotator'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
                 'README.txt',
                 optionflags=OPTIONFLAGS,
                 package='eea.annotator'),

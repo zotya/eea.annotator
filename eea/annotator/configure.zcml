@@ -10,6 +10,8 @@
 
   <include package=".browser" />
   <include package=".controlpanel" />
+  <include package=".rules" />
+  <include package=".storage" />
   <include package=".subtypes" />
   <include package=".upgrades" />
 

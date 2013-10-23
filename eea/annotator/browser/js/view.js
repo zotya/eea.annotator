@@ -22,9 +22,7 @@ EEA.Annotator = function(context, options){
 EEA.Annotator.prototype = {
   initialize: function(){
     var self = this;
-    if(window.console){
-      console.log('EEA.Annotator initialized');
-    }
+    jQuery('#content-core').annotator();
   }
 };
 

@@ -32,8 +32,7 @@ class Annotator(common.ViewletBase):
         if disabled:
             return False
 
-        visibleFor = self.settings.portalTypes or []
-        ctype = getattr(self.context, 'portal_type', None)
-        if ctype in visibleFor:
-            return True
-        return False
+        if self.settings.disabled(self.context):
+            return False
+
+        return True

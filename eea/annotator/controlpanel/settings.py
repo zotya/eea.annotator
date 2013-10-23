@@ -1,13 +1,14 @@
 """ Control Panel
 """
-from zope.component import queryUtility
+from zope.component import queryUtility, queryAdapter
 from zope.interface import implements
-from eea.annotator.interfaces import ISettings
-from eea.annotator.config import EEAMessageFactory as _
+from zope.formlib import form
 from plone.app.controlpanel.form import ControlPanelForm
 from plone.registry.interfaces import IRegistry
 from Products.CMFDefault.formlib.schema import SchemaAdapterBase
-from zope.formlib import form
+from eea.annotator.interfaces import ISettings
+from eea.annotator.config import EEAMessageFactory as _
+from eea.annotator.interfaces import IAnnotatorStorage
 
 class ControlPanel(ControlPanelForm):
     """ API
@@ -47,3 +48,13 @@ class ControlPanelAdapter(SchemaAdapterBase):
         """ Set portalTypes
         """
         self.settings.portalTypes = value
+
+    def disabled(self, obj):
+        """ Check if inline comments are disabled for obj
+        """
+        ctype = getattr(obj, 'portal_type', '')
+        if ctype not in self.portalTypes:
+            return True
+
+        storage = queryAdapter(obj, IAnnotatorStorage)
+        return getattr(storage, 'disabled', False)
