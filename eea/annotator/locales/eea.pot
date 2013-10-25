@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-10-22 10:15+0000\n"
+"POT-Creation-Date: 2013-10-25 09:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,16 +17,26 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: eea\n"
 
+#: ../../annotator/storage/interfaces.py:21
+msgid "Annotator disabled?"
+msgstr ""
+
+#: ../../annotator/storage/interfaces.py:20
+msgid "Annotator enabled?"
+msgstr ""
+
 #: ../../annotator/controlpanel/interfaces.py:22
 msgid "Annotator inline comments are enabled for the following content-types"
 msgstr ""
 
+#: ../../annotator/rules/interfaces.py:11
 #: ../../annotator/subtypes/schema.py:31
 msgid "Disable inline comments"
 msgstr ""
 
+#: ../../annotator/rules/interfaces.py:12
 #: ../../annotator/subtypes/schema.py:32
-msgid "Do not allow editors to add inline comments onthis context/page"
+msgid "Do not allow editors to add inline comments on this context/page"
 msgstr ""
 
 #: ../../annotator/controlpanel/settings.py:16
