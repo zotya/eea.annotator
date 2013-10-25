@@ -17,23 +17,5 @@ class IAnnotatorStorage(Interface):
         <eea.annotator.storage.handler.Storage object...>
 
     """
-    enabled = schema.Bool(title=_(u"Annotator enabled?"))
-    disabled = schema.Bool(title=_(u"Annotator disabled?"))
-
-    def enable():
-        """ Enable annotator
-
-            >>> storage.enable()
-            >>> storage.enabled
-            True
-
-        """
-
-    def disable():
-        """ Disable annotator
-
-            >>> storage.disable()
-            >>> storage.disabled
-            True
-
-        """
+    disabled = schema.Bool(title=_(u"Is annotator disabled?"))
+    readOnly = schema.Bool(title=_(u"Is annotator read-only?"))

@@ -8,7 +8,6 @@ from plone.registry.interfaces import IRegistry
 from Products.CMFDefault.formlib.schema import SchemaAdapterBase
 from eea.annotator.interfaces import ISettings
 from eea.annotator.config import EEAMessageFactory as _
-from eea.annotator.interfaces import IAnnotatorStorage
 
 class ControlPanel(ControlPanelForm):
     """ API
@@ -55,6 +54,4 @@ class ControlPanelAdapter(SchemaAdapterBase):
         ctype = getattr(obj, 'portal_type', '')
         if ctype not in self.portalTypes:
             return True
-
-        storage = queryAdapter(obj, IAnnotatorStorage)
-        return getattr(storage, 'disabled', False)
+        return False

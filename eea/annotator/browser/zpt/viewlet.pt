@@ -1,1 +1,4 @@
-<div class="eea-annotator" tal:condition="view/available"></div>
+<div class="eea-annotator"
+  tal:attributes="data-readonly python:int(view.readOnly)"
+  tal:condition="view/available">
+</div>

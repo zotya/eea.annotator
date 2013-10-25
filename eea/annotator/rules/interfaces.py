@@ -9,5 +9,9 @@ class IAnnotatorAction(Interface):
     """
     disableAnnotator = schema.Bool(
         title=_(u'Disable inline comments'),
-        description=_("Do not allow editors to add inline comments on"
+        description=_("Do not allow editors to add inline comments on "
                       'this context/page'))
+
+    readOnlyAnnotator = schema.Bool(
+        title=_('Read-only inline comments'),
+        description=_("Make inline comments read-only"))

@@ -10,6 +10,8 @@ EEA.Annotator = function(context, options){
   self.context = context;
 
   self.settings = {
+    readOnly: self.context.data('readonly') || 0,
+    prefix: ''
   };
 
   if(options){
@@ -22,7 +24,19 @@ EEA.Annotator = function(context, options){
 EEA.Annotator.prototype = {
   initialize: function(){
     var self = this;
-    jQuery('#content-core').annotator();
+    jQuery('#content-core').annotator({
+      readOnly: Boolean(self.settings.readOnly)
+    });
+    jQuery('#content-core').annotator('addPlugin', 'Store', {
+      prefix: self.settings.prefix,
+      urls: {
+        create:  '/annotator.storage.create',
+        read:    '/annotator.storage.read?id=:id',
+        update:  '/annotator.storage.update?id=:id',
+        destroy: '/annotator.storage.delete?id=:id',
+        search:  '/annotator.search'
+      }
+    });
   }
 };
 
@@ -41,6 +55,9 @@ jQuery(document).ready(function(){
     return;
   }
 
-  var settings = {};
+  var settings = {
+    prefix: jQuery('base').attr('href')
+  };
+
   items.EEAAnnotator(settings);
 });

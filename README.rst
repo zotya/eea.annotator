@@ -21,8 +21,8 @@ Main features
 1. Inline comments on any webpage.
 2. Portal types aware. Possibility to enable inline comments only for certain
    content types.
-3. Workflow aware. Possibility to enable inline comments only for certain
-   workflow states.
+3. Workflow aware. Possibility to enable/disable inline comments only
+   for certain workflow states (via content rules).
 4. Dexterity aware. It works also with dexterity content-types.
 5. Contextually disable inline comments.
 
@@ -46,11 +46,15 @@ Getting started
 
 Dexterity
 ---------
-Dexterity content-types are supported by EEA Annotator. In order to be able
-to contextually disable inline comments you need to add a field called
-disableAnnotator within your Dexterity content-type schema fields
-(Plone Site Setup > Dexterity Content Types > MyCustomType > Fields)
+Dexterity content-types are supported by EEA Annotator.
 
+1. In order to be able to contextually disable inline comments you need to add
+   a boolean field called disableAnnotator within your Dexterity content-type
+   schema fields.
+2. In order to be able to contextually make inline comments read-only
+   you need to add a boolean field called readOnlyAnnotator within your
+   Dexterity content-type schema fields.
+   (Plone Site Setup > Dexterity Content Types > MyCustomType > Fields)
 
 Source code
 ===========

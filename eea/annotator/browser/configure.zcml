@@ -3,6 +3,51 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="eea">
 
+  <browser:page
+    name="annotator.storage.create"
+    for="eea.annotator.interfaces.IAnnotatorAware"
+    layer="eea.annotator.interfaces.ILayer"
+    class=".app.view.Storage"
+    attribute="create"
+    permission="eea.annotator.add"
+    />
+
+  <browser:page
+    name="annotator.storage.read"
+    for="eea.annotator.interfaces.IAnnotatorAware"
+    layer="eea.annotator.interfaces.ILayer"
+    class=".app.view.Storage"
+    attribute="read"
+    permission="eea.annotator.view"
+    />
+
+  <browser:page
+    name="annotator.storage.update"
+    for="eea.annotator.interfaces.IAnnotatorAware"
+    layer="eea.annotator.interfaces.ILayer"
+    class=".app.view.Storage"
+    attribute="update"
+    permission="eea.annotator.edit"
+    />
+
+  <browser:page
+    name="annotator.storage.delete"
+    for="eea.annotator.interfaces.IAnnotatorAware"
+    layer="eea.annotator.interfaces.ILayer"
+    class=".app.view.Storage"
+    attribute="delete"
+    permission="eea.annotator.edit"
+    />
+
+  <browser:page
+    name="annotator.search"
+    for="eea.annotator.interfaces.IAnnotatorAware"
+    layer="eea.annotator.interfaces.ILayer"
+    class=".app.view.Storage"
+    attribute="search"
+    permission="eea.annotator.view"
+    />
+
   <browser:viewlet
     name="eea.annotator"
     layer="eea.annotator.interfaces.ILayer"

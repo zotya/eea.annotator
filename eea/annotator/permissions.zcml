@@ -5,7 +5,19 @@
   <permission
     id="eea.annotator.add"
     title="eea.annotator: Add"
-    description="Add EEA Annotator"
+    description="Add inline comments"
+    />
+
+  <permission
+    id="eea.annotator.view"
+    title="eea.annotator: View"
+    description="View inline comments"
+    />
+
+  <permission
+    id="eea.annotator.edit"
+    title="eea.annotator: Edit"
+    description="Edit inline comments"
     />
 
 </configure>

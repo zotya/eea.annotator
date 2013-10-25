@@ -37,20 +37,22 @@ class Storage(object):
     def disabled(self):
         """ Annotator disabled?
         """
-        return self.storage.get('disableAnnotator', False)
+        return getattr(self.context, 'disableAnnotator', False)
+
+    @disabled.setter
+    def disabled(self, value):
+        """ Disable inline comments
+        """
+        setattr(self.context, 'disableAnnotator', value)
 
     @property
-    def enabled(self):
-        """ Annotator enabled?
+    def readOnly(self):
+        """ Read-only inline comments
         """
-        return not self.disabled
+        return getattr(self.context, 'readOnlyAnnotator', False)
 
-    def disable(self):
-        """ Disable
+    @readOnly.setter
+    def readOnly(self, value):
+        """ Make inline comments read-only
         """
-        self._storage['disableAnnotator'] = True
-
-    def enable(self):
-        """ Enable
-        """
-        self._storage['disableAnnotator'] = False
+        setattr(self.context, 'readOnlyAnnotator', value)

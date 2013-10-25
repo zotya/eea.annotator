@@ -29,8 +29,18 @@ class EEASchemaExtender(object):
             searchable=False,
             widget=BooleanWidget(
                 label=_('Disable inline comments'),
-                description=_("Do not allow editors to add inline comments on"
-                              'this context/page'),
+                description=_("Do not allow editors to add inline comments on "
+                              "this context/page"),
+            )
+        ),
+        EEABooleanField(
+            name='readOnlyAnnotator',
+            schemata='settings',
+            default=False,
+            searchable=False,
+            widget=BooleanWidget(
+                label=_('Read-only inline comments'),
+                description=_("Make inline comments read-only"),
             )
         ),
     )

@@ -17,6 +17,7 @@ class AnnotatorAction(SimpleItem):
     implements(IAnnotatorAction, IRuleElementData)
 
     disableAnnotator = False
+    readOnlyAnnotator = False
     element = 'eea.annotator.rules.actions.Annotator'
     summary = u'Inline comments'
 
@@ -34,15 +35,15 @@ class AnnotatorActionExecutor(object):
 
     def __call__(self):
         disableAnnotator = self.element.disableAnnotator
+        readOnlyAnnotator = self.element.readOnlyAnnotator
+
         context = self.event.object
         annotator = queryAdapter(context, IAnnotatorStorage)
         if not annotator:
             return True
 
-        if disableAnnotator:
-            annotator.disable()
-        else:
-            annotator.enable()
+        annotator.disabled = disableAnnotator
+        annotator.readOnly = readOnlyAnnotator
 
         return True
 

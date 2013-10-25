@@ -4,6 +4,7 @@ from zope.component.hooks import getSite
 from zope.component import queryAdapter
 from plone.app.layout.viewlets import common
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from eea.annotator.interfaces import IAnnotatorStorage
 from eea.annotator.controlpanel.interfaces import ISettings
 
 class Annotator(common.ViewletBase):
@@ -25,11 +26,18 @@ class Annotator(common.ViewletBase):
         return self._settings
 
     @property
+    def readOnly(self):
+        """ Read-only inline comments?
+        """
+        storage = queryAdapter(self.context, IAnnotatorStorage)
+        return storage.readOnly
+
+    @property
     def available(self):
         """ Available
         """
-        disabled = getattr(self.context, "disableAnnotator", None)
-        if disabled:
+        storage = queryAdapter(self.context, IAnnotatorStorage)
+        if storage.disabled:
             return False
 
         if self.settings.disabled(self.context):
