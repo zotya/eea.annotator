@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-10-25 09:02+0000\n"
+"POT-Creation-Date: 2013-10-25 13:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,14 +13,6 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
-
-#: ../../annotator/storage/interfaces.py:21
-msgid "Annotator disabled?"
-msgstr ""
-
-#: ../../annotator/storage/interfaces.py:20
-msgid "Annotator enabled?"
-msgstr ""
 
 #: ../../annotator/controlpanel/interfaces.py:22
 msgid "Annotator inline comments are enabled for the following content-types"
@@ -46,5 +38,23 @@ msgstr ""
 
 #: ../../annotator/controlpanel/interfaces.py:21
 msgid "Enable inline comments"
+msgstr ""
+
+#: ../../annotator/storage/interfaces.py:20
+msgid "Is annotator disabled?"
+msgstr ""
+
+#: ../../annotator/storage/interfaces.py:21
+msgid "Is annotator read-only?"
+msgstr ""
+
+#: ../../annotator/rules/interfaces.py:17
+#: ../../annotator/subtypes/schema.py:43
+msgid "Make inline comments read-only"
+msgstr ""
+
+#: ../../annotator/rules/interfaces.py:16
+#: ../../annotator/subtypes/schema.py:42
+msgid "Read-only inline comments"
 msgstr ""
 
