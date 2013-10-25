@@ -1,7 +1,6 @@
 """ Browser controllers
 """
 import json
-from zope.interface import Interface
 from Products.Five.browser import BrowserView
 
 class Storage(BrowserView):

@@ -1,6 +1,6 @@
 """ Control Panel
 """
-from zope.component import queryUtility, queryAdapter
+from zope.component import queryUtility
 from zope.interface import implements
 from zope.formlib import form
 from plone.app.controlpanel.form import ControlPanelForm
