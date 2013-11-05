@@ -30,10 +30,10 @@ EEA.Annotator.prototype = {
     jQuery('#content-core').annotator('addPlugin', 'Store', {
       prefix: self.settings.prefix,
       urls: {
-        create:  '/annotator.storage.create',
-        read:    '/annotator.storage.read?id=:id',
-        update:  '/annotator.storage.update?id=:id',
-        destroy: '/annotator.storage.delete?id=:id',
+        create:  '/annotator.storage',
+        read:    '/annotator.storage/:id',
+        update:  '/annotator.storage/:id',
+        destroy: '/annotator.storage/:id',
         search:  '/annotator.search'
       }
     });
