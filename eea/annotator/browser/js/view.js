@@ -28,14 +28,7 @@ EEA.Annotator.prototype = {
       readOnly: Boolean(self.settings.readOnly)
     });
     jQuery('#content-core').annotator('addPlugin', 'Store', {
-      prefix: self.settings.prefix,
-      urls: {
-        create:  '/annotator.storage',
-        read:    '/annotator.storage/:id',
-        update:  '/annotator.storage/:id',
-        destroy: '/annotator.storage/:id',
-        search:  '/annotator.search'
-      }
+      prefix: self.settings.prefix
     });
   }
 };
@@ -56,7 +49,7 @@ jQuery(document).ready(function(){
   }
 
   var settings = {
-    prefix: jQuery('base').attr('href')
+    prefix: jQuery('base').attr('href') + '/annotator.api'
   };
 
   items.EEAAnnotator(settings);

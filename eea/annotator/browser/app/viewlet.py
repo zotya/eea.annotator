@@ -30,14 +30,14 @@ class Annotator(common.ViewletBase):
         """ Read-only inline comments?
         """
         storage = queryAdapter(self.context, IAnnotatorStorage)
-        return storage.readOnly
+        return storage.readOnly if storage else False
 
     @property
     def available(self):
         """ Available
         """
         storage = queryAdapter(self.context, IAnnotatorStorage)
-        if storage.disabled:
+        if storage and storage.disabled:
             return False
 
         if self.settings.disabled(self.context):

@@ -1,42 +1,28 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="eea">
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="eea">
+
+  <adapter factory=".app.traverse.AnnotatorAwareTraverse" />
+  <adapter factory=".app.traverse.DexterityAnnotatorAwareTraverse" />
+  <adapter factory=".app.traverse.AnnotatorAPITraverse" />
 
   <browser:page
-    name="annotator.storage"
+    name="annotator.api"
     for="eea.annotator.interfaces.IAnnotatorAware"
     layer="eea.annotator.interfaces.ILayer"
-    class=".app.view.Annotations"
-    permission="eea.annotator.edit"
+    class=".app.view.API"
+    allowed_attributes="annotations"
+    permission="eea.annotator.view"
     />
 
-  <!--<browser:page-->
-    <!--name="annotator.storage.update"-->
-    <!--for="eea.annotator.interfaces.IAnnotatorAware"-->
-    <!--layer="eea.annotator.interfaces.ILayer"-->
-    <!--class=".app.view.Storage"-->
-    <!--attribute="update"-->
-    <!--permission="eea.annotator.edit"-->
-    <!--/>-->
-
-  <!--<browser:page-->
-    <!--name="annotator.storage.delete"-->
-    <!--for="eea.annotator.interfaces.IAnnotatorAware"-->
-    <!--layer="eea.annotator.interfaces.ILayer"-->
-    <!--class=".app.view.Storage"-->
-    <!--attribute="delete"-->
-    <!--permission="eea.annotator.edit"-->
-    <!--/>-->
-
-  <!--<browser:page-->
-    <!--name="annotator.search"-->
-    <!--for="eea.annotator.interfaces.IAnnotatorAware"-->
-    <!--layer="eea.annotator.interfaces.ILayer"-->
-    <!--class=".app.view.Storage"-->
-    <!--attribute="search"-->
-    <!--permission="eea.annotator.view"-->
-    <!--/>-->
+  <browser:page
+    name="annotations"
+    for="eea.annotator.browser.interfaces.IAnnotatorAPI"
+    class=".app.view.Annotations"
+    permission="eea.annotator.edit"
+    allowed_attributes="PUT"
+    />
 
   <browser:viewlet
     name="eea.annotator"

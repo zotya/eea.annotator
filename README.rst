@@ -15,6 +15,7 @@ Contents
 
 .. contents::
 
+
 Main features
 =============
 
@@ -34,13 +35,24 @@ Install
   https://github.com/eea/eea.annotator/tree/master/buildouts/plone4
 - Install eea.annotator within Site Setup > Add-ons
 
+.. warning ::
+
+  Once you'll install this add-on via Site Setup > Add-ons, it will
+  overrides Publish Traversal for Archetypes base object
+  (plone.app.imaging.interfaces.IBaseObject) and Dexterity Base Content
+  (plone.dexterity.interfaces.IDexterityContent) in order to handle custom
+  annotator URLs. Still, it preserves old functionality from plone.app.imaging
+  and plone.dexterity (also eea.depiction) but if you have custom traversals
+  registered for these interfaces, try to use custom browser layers when
+  registering them (see: eea.annotator.browser.app.traverse).
+
 Getting started
 ===============
 
 1. Go to Plone Site Setup > EEA Annotator Settings and enable inline comments
    for your content-types (default enabled for Page);
-2. Go to your workspace within Plone Site and add a new object (Page) or user an
-   existing one;
+2. Go to your work-space within Plone Site and add a new object (Page) or user
+   an existing one;
 3. In view mode select text you want to comment on and add an inline comment;
 4. Within edit form > Settings Tab you can contextually disable inline comments.
 
