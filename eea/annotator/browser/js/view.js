@@ -11,7 +11,14 @@ EEA.Annotator = function(context, options){
 
   self.settings = {
     readOnly: self.context.data('readonly') || 0,
-    prefix: ''
+    prefix: '',
+    urls: {
+      create:  '/annotations_edit',
+      read:    '/annotations_view/:id',
+      update:  '/annotations_edit/:id',
+      destroy: '/annotations_edit/:id',
+      search:  '/annotations_search'
+    }
   };
 
   if(options){
@@ -24,11 +31,17 @@ EEA.Annotator = function(context, options){
 EEA.Annotator.prototype = {
   initialize: function(){
     var self = this;
+    self.reload();
+  },
+
+  reload: function(){
+    var self = this;
     jQuery('#content-core').annotator({
       readOnly: Boolean(self.settings.readOnly)
     });
     jQuery('#content-core').annotator('addPlugin', 'Store', {
-      prefix: self.settings.prefix
+      prefix: self.settings.prefix,
+      urls: self.settings.urls
     });
   }
 };

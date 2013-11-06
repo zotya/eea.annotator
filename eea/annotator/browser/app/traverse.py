@@ -15,7 +15,7 @@ try:
     from eea.depiction import traverse
     ScaleTraverser = traverse.ScaleTraverser
 except (ImportError, AttributeError), err:
-    logger.exception(err)
+    logger.debug(err)
     from plone.app.imaging.traverse import ImageTraverser as ScaleTraverser
 
 try:
@@ -24,7 +24,7 @@ try:
     from plone.dexterity.browser import traversal
     DexterityPublishTraverse = traversal.DexterityPublishTraverse
 except (ImportError, AttributeError), err:
-    logger.exception(err)
+    logger.debug(err)
     DexterityPublishTraverse = ScaleTraverser
     class IDexterityContent(Interface):
         """ Fallback
@@ -84,10 +84,10 @@ class AnnotatorAPITraverse(DefaultPublishTraverse):
     def publishTraverse(self, request, name):
         """ Custom traverser
         """
-        if name == 'annotations' and getattr(request,
-                                             'maybe_webdav_client', False):
+        if name.startswith('annotations') and getattr(
+            request, 'maybe_webdav_client', False):
             if request.method in ('PUT', 'DELETE'):
-                return queryMultiAdapter((self.context, self.request),
-                                         name='annotations')
+                return queryMultiAdapter(
+                    (self.context, self.request), name=name)
 
         return super(AnnotatorAPITraverse, self).publishTraverse(request, name)

@@ -1,5 +1,7 @@
 """ Storage
 """
+import json
+import hashlib
 from zope.interface import implements
 from zope.annotation.interfaces import IAnnotations
 from eea.annotator.interfaces import IAnnotatorStorage
@@ -30,6 +32,22 @@ class Storage(object):
         """
         anno = IAnnotations(self.context)
         return anno.get(PROJECTNAME, {})
+
+    @property
+    def _comments(self):
+        """ Editable comments
+        """
+        comments = self._storage.get('comments')
+        if not comments:
+            comments = self._storage['comments'] = PersistentDict()
+        return comments
+
+    @property
+    def comments(self):
+        """ Read-only comments
+        """
+        return self.storage.get('comments', {})
+
     #
     # Public interface
     #
@@ -56,3 +74,37 @@ class Storage(object):
         """ Make inline comments read-only
         """
         setattr(self.context, 'readOnlyAnnotator', value)
+    #
+    # Inline comments
+    #
+    def get(self, name, default=None):
+        """ Get item by name
+        """
+        return self.comments.get(name, default)
+
+    def add(self, comment):
+        """ Add inline comment
+        """
+        oid = hashlib.md5(u"%s" % comment).hexdigest()
+        if isinstance(comment, (str, unicode)):
+            comment = json.loads(comment)
+        comment['id'] = oid
+        self._comments[oid] = PersistentDict(comment)
+        return comment
+
+    def edit(self, comment):
+        """ Update existing comment
+        """
+        if isinstance(comment, (str, unicode)):
+            comment = json.loads(comment)
+        oid = comment.get('id')
+        self._comments[oid] = PersistentDict(comment)
+        return comment
+
+    def delete(self, comment):
+        """ Delete comment
+        """
+        if isinstance(comment, (str, unicode)):
+            comment = json.loads(comment)
+        oid = comment.get('id')
+        return self._comments.pop(oid)

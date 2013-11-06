@@ -3,12 +3,6 @@
   i18n_domain="eea">
 
   <permission
-    id="eea.annotator.add"
-    title="eea.annotator: Add"
-    description="Add inline comments"
-    />
-
-  <permission
     id="eea.annotator.view"
     title="eea.annotator: View"
     description="View inline comments"

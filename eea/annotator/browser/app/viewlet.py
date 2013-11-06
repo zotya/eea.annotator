@@ -2,6 +2,7 @@
 """
 from zope.component.hooks import getSite
 from zope.component import queryAdapter
+from zope.security import checkPermission
 from plone.app.layout.viewlets import common
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.annotator.interfaces import IAnnotatorStorage
@@ -29,6 +30,9 @@ class Annotator(common.ViewletBase):
     def readOnly(self):
         """ Read-only inline comments?
         """
+        if not checkPermission('eea.annotator.edit', self.context):
+            return True
+
         storage = queryAdapter(self.context, IAnnotatorStorage)
         return storage.readOnly if storage else False
 
@@ -36,6 +40,9 @@ class Annotator(common.ViewletBase):
     def available(self):
         """ Available
         """
+        if not checkPermission('eea.annotator.view', self.context):
+            return False
+
         storage = queryAdapter(self.context, IAnnotatorStorage)
         if storage and storage.disabled:
             return False

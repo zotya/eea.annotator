@@ -12,16 +12,28 @@
     for="eea.annotator.interfaces.IAnnotatorAware"
     layer="eea.annotator.interfaces.ILayer"
     class=".app.view.API"
-    allowed_attributes="annotations"
     permission="eea.annotator.view"
     />
 
   <browser:page
-    name="annotations"
+    name="annotations_view"
     for="eea.annotator.browser.interfaces.IAnnotatorAPI"
     class=".app.view.Annotations"
+    permission="eea.annotator.view"
+    />
+
+  <browser:page
+    name="annotations_edit"
+    for="eea.annotator.browser.interfaces.IAnnotatorAPI"
+    class=".app.view.AnnotationsEdit"
     permission="eea.annotator.edit"
-    allowed_attributes="PUT"
+    />
+
+  <browser:page
+    name="annotations_search"
+    for="eea.annotator.browser.interfaces.IAnnotatorAPI"
+    class=".app.view.AnnotationsSearch"
+    permission="eea.annotator.view"
     />
 
   <browser:viewlet

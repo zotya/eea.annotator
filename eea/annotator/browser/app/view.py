@@ -3,12 +3,14 @@
 import json
 import logging
 from zope.interface import implements, implementer
-from zope.component import queryMultiAdapter
-from Products.Five.browser import BrowserView
+from zope.component import queryMultiAdapter, queryAdapter
 from zope.publisher.interfaces import IPublishTraverse
+from AccessControl import Unauthorized
+from Products.Five.browser import BrowserView
+from Products.CMFCore.utils import getToolByName
 from eea.annotator.browser.interfaces import IAnnotatorAPI
 from eea.annotator.browser.interfaces import IAnnotatorAnnotations
-
+from eea.annotator.interfaces import IAnnotatorStorage
 logger = logging.getLogger('eea.annotator')
 
 
@@ -30,8 +32,9 @@ class API(BrowserView):
     def __getattr__(self, name):
         """ Override get annotations attr
         """
-        if name == 'annotations' and self.request.method in ('PUT', 'DELETE'):
-            return queryMultiAdapter((self, self.request), name=u'annotations')
+        if (name.startswith('annotations') and
+            self.request.method in ('PUT', 'DELETE')):
+            return queryMultiAdapter((self, self.request), name=name)
         return super(API, self).__getattr__(name)
 
     def absolute_url(self, *args, **kwargs):
@@ -41,16 +44,14 @@ class API(BrowserView):
             self.context.absolute_url(*args, **kwargs), self.__name__
         ))
 
-    def PUT(self, REQUEST, RESPONSE):
-        """ do nothing
-        """
-        return
-
     def __call__(self, **kwargs):
+        qi = getToolByName(self.context, 'portal_quickinstaller')
+        version = qi.getProductVersion('eea.annotator')
         return jsonify({
             "name": "EEA Annotator Store API",
-            "version": "1.0"
+            "version": version
             }, self.request.response)
+
 
 @implementer(IPublishTraverse)
 class Annotations(BrowserView):
@@ -58,47 +59,66 @@ class Annotations(BrowserView):
     """
     implements(IAnnotatorAnnotations)
 
-    def PUT(self, REQUEST, RESPONSE):
-        """ Do nothing
-        """
-        return
+    def __init__(self, context, request):
+        super(Annotations, self).__init__(context, request)
+        self.parent = context.context
 
-    def read(self, **kwargs):
-        """ Read
+    def jsonify(self, item, status=None):
+        """ Convert object to JSON
         """
-        logger.debug('read')
-        return jsonify({'name': 'a', 'text': 'A'}, self.request.response)
+        return jsonify(item, self.request.response, status)
+
+    def __getattr__(self, name):
+        item = self.storage.get(name)
+        return item if item else super(Annotations, self).__getattr__(name)
+
+    @property
+    def storage(self):
+        """ Get storage adapter
+        """
+        return queryAdapter(self.parent, IAnnotatorStorage)
 
     def index(self, **kwargs):
         """ Index
         """
-        logger.debug("index")
-        return jsonify([], self.request.response)
+        comments = [dict(item) for item in self.storage.comments.values()]
+        return self.jsonify(comments)
+
+    def read(self, item=None, **kwargs):
+        """ Read
+        """
+        if item is not None:
+            res = dict(item)
+        else:
+            name = self.request.get('name')
+            res = dict(self.storage.get(name))
+        return self.jsonify(res)
 
     def create(self, **kwargs):
         """ Create
         """
-        logger.debug("create")
-        return self.read()
+        raise Unauthorized("You're not authorized to create inline comments")
 
     def update(self, **kwargs):
         """ Update
         """
-        logger.debug("update")
-        return self.read()
+        raise Unauthorized("You're not authorized to edit inline comments")
 
     def delete(self, **kwargs):
         """ Delete
         """
-        logger.debug("delete")
-        return jsonify(None, self.request.response, 204)
+        raise Unauthorized("You're not authorized to delete inline comments")
 
     def publishTraverse(self, REQUEST, name):
         """ Override traverser
         """
-        if name == 'PUT' and self.request.method == 'PUT':
+        if self.request.method == 'PUT':
             return self.update
-        return self.read
+        elif self.request.method == 'DELETE':
+            return self.delete
+        else:
+            self.request.form['name'] = name
+            return self.read
 
     def __call__(self, **kwargs):
         method = self.request.method
@@ -111,3 +131,61 @@ class Annotations(BrowserView):
         elif method == 'DELETE':
             return self.delete()
         return jsonify("Bad request", self.request.response, 400)
+
+
+@implementer(IPublishTraverse)
+class AnnotationsEdit(Annotations):
+    """ Annotator Storage Editor
+    """
+    def create(self, **kwargs):
+        """ Create
+        """
+        try:
+            item = self.request._file.read()
+            item = self.storage.add(item)
+        except Exception, err:
+            logger.exception(err)
+            return self.jsonify(err, 400)
+        else:
+            return self.read(item)
+
+    def update(self, **kwargs):
+        """ Update
+        """
+        try:
+            item = self.request._file.read()
+            item = self.storage.edit(item)
+        except Exception, err:
+            logger.exception(err)
+            return self.jsonify(err, 400)
+        else:
+            return self.read(item)
+
+    def delete(self, **kwargs):
+        """ Delete
+        """
+        try:
+            item = self.request._file.read()
+            item = self.storage.delete(item)
+        except Exception, err:
+            logger.exception(err)
+            return self.jsonify(err, 400)
+        else:
+            return self.jsonify(None, 204)
+
+
+class AnnotationsSearch(BrowserView):
+    """ Annotator Storage
+    """
+    def __call__(self, **kwargs):
+
+        ## Not implemented yet
+        #kwargs.update(self.request.form)
+        #query = kwargs.get('text', '')
+        #limit = kwargs.get('limit', None)
+        #offset = kwargs.get('offset', None)
+
+        return jsonify({
+            'total': 0,
+            'rows': []
+            }, self.request.response)
