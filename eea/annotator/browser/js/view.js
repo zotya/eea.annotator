@@ -36,13 +36,21 @@ EEA.Annotator.prototype = {
 
   reload: function(){
     var self = this;
-    jQuery('#content-core').annotator({
+
+    // Init annotator
+    jQuery('#content').annotator({
       readOnly: Boolean(self.settings.readOnly)
     });
-    jQuery('#content-core').annotator('addPlugin', 'Store', {
+
+    // Tags plugin
+    jQuery('#content').annotator('addPlugin', 'Tags');
+
+    // Storage plugin
+    jQuery('#content').annotator('addPlugin', 'Store', {
       prefix: self.settings.prefix,
       urls: self.settings.urls
     });
+
   }
 };
 
