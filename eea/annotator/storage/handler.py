@@ -2,9 +2,11 @@
 """
 import json
 import hashlib
+from datetime import datetime
 from zope.interface import implements
 from zope.annotation.interfaces import IAnnotations
 from eea.annotator.interfaces import IAnnotatorStorage
+from Products.CMFCore.utils import getToolByName
 from eea.annotator.config import PROJECTNAME
 from persistent.dict import PersistentDict
 
@@ -86,19 +88,32 @@ class Storage(object):
         """ Add inline comment
         """
         oid = hashlib.md5(u"%s" % comment).hexdigest()
+        now = datetime.now()
+        mtool = getToolByName(self.context, 'portal_membership')
+        user = mtool.getAuthenticatedMember().getId()
+
         if isinstance(comment, (str, unicode)):
             comment = json.loads(comment)
+
         comment['id'] = oid
+        comment['created'] = now.isoformat()
+        comment['updated'] = now.isoformat()
+        comment['user'] = user
+
         self._comments[oid] = PersistentDict(comment)
         return comment
 
     def edit(self, comment):
         """ Update existing comment
         """
+        now = datetime.now()
         if isinstance(comment, (str, unicode)):
             comment = json.loads(comment)
+
         oid = comment.get('id')
+        comment['updated'] = now.isoformat()
         self._comments[oid] = PersistentDict(comment)
+
         return comment
 
     def delete(self, comment):
