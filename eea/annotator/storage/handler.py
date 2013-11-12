@@ -90,7 +90,9 @@ class Storage(object):
         oid = hashlib.md5(u"%s" % comment).hexdigest()
         now = datetime.now()
         mtool = getToolByName(self.context, 'portal_membership')
-        user = mtool.getAuthenticatedMember().getId()
+        member = mtool.getAuthenticatedMember()
+        userid = member.getId()
+        username = member.getProperty('fullname', userid)
 
         if isinstance(comment, (str, unicode)):
             comment = json.loads(comment)
@@ -98,7 +100,10 @@ class Storage(object):
         comment['id'] = oid
         comment['created'] = now.isoformat()
         comment['updated'] = now.isoformat()
-        comment['user'] = user
+        comment['user'] = {
+            'id': userid,
+            'name': username
+        }
 
         self._comments[oid] = PersistentDict(comment)
         return comment

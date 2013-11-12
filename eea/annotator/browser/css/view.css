@@ -1,4 +1,12 @@
 /* CSS */
 .eea-annotator {
-    display: none;
+  display: none;
+}
+
+.annotator-item .annotator-user {
+  text-align: right;
+}
+
+.annotator-item .annotator-user:after {
+  content: ' \21b5';
 }

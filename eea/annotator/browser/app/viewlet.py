@@ -5,6 +5,7 @@ from zope.component import queryAdapter
 from zope.security import checkPermission
 from plone.app.layout.viewlets import common
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.CMFCore.utils import getToolByName
 from eea.annotator.interfaces import IAnnotatorStorage
 from eea.annotator.controlpanel.interfaces import ISettings
 
@@ -25,6 +26,21 @@ class Annotator(common.ViewletBase):
             site = getSite()
             self._settings = queryAdapter(site, ISettings)
         return self._settings
+
+    @property
+    def userid(self):
+        """ Current user id
+        """
+        mtool = getToolByName(self.context, 'portal_membership')
+        return mtool.getAuthenticatedMember().getId()
+
+    @property
+    def username(self):
+        """ Current user name
+        """
+        mtool = getToolByName(self.context, 'portal_membership')
+        return mtool.getAuthenticatedMember().getProperty(
+            'fullname', self.userid)
 
     @property
     def readOnly(self):

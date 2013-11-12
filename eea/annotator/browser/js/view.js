@@ -12,6 +12,10 @@ EEA.Annotator = function(context, options){
   self.settings = {
     readOnly: self.context.data('readonly') || 0,
     prefix: '',
+    user: {
+      id: 'anonymous',
+      name: 'Anonymous'
+    },
     urls: {
       create:  '/annotations_edit',
       read:    '/annotations_view/:id',
@@ -42,8 +46,29 @@ EEA.Annotator.prototype = {
       readOnly: Boolean(self.settings.readOnly)
     });
 
-    // Tags plugin
-    jQuery('#content').annotator('addPlugin', 'Tags');
+    // Permissions plugin
+    jQuery('#content').annotator('addPlugin', 'Permissions', {
+      user: self.settings.user,
+      userId: function(user){
+        if(user && user.id){
+          return user.id;
+        }else{
+          return user;
+        }
+      },
+      userString: function(user){
+        if(user && user.name && user.id){
+          return user.name + ' @' + user.id;
+        }else{
+          return user;
+        }
+      },
+      showViewPermissionsCheckbox: false,
+      showEditPermissionsCheckbox: false
+    });
+
+    // // Reply plugin
+    //jQuery('#content').annotator('addPlugin', 'Comment');
 
     // Storage plugin
     jQuery('#content').annotator('addPlugin', 'Store', {
@@ -69,8 +94,14 @@ jQuery(document).ready(function(){
     return;
   }
 
+  var userid = items.data('userid') || 'anonymous';
+  var username = items.data('username') || userid;
   var settings = {
-    prefix: jQuery('base').attr('href') + '/annotator.api'
+    prefix: jQuery('base').attr('href') + '/annotator.api',
+    user: {
+      id: userid,
+      name: username
+    }
   };
 
   items.EEAAnnotator(settings);
