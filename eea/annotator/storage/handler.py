@@ -45,6 +45,20 @@ class Storage(object):
         return comments
 
     @property
+    def user(self):
+        """ Current user
+        """
+        mtool = getToolByName(self.context, 'portal_membership')
+        member = mtool.getAuthenticatedMember()
+        name = member.getId()
+        title = member.getProperty('fullname', name) or name
+
+        return {
+            'id': name,
+            'name': title
+        }
+
+    @property
     def comments(self):
         """ Read-only comments
         """
@@ -89,10 +103,6 @@ class Storage(object):
         """
         oid = hashlib.md5(u"%s" % comment).hexdigest()
         now = datetime.now()
-        mtool = getToolByName(self.context, 'portal_membership')
-        member = mtool.getAuthenticatedMember()
-        userid = member.getId()
-        username = member.getProperty('fullname', userid)
 
         if isinstance(comment, (str, unicode)):
             comment = json.loads(comment)
@@ -100,10 +110,7 @@ class Storage(object):
         comment['id'] = oid
         comment['created'] = now.isoformat()
         comment['updated'] = now.isoformat()
-        comment['user'] = {
-            'id': userid,
-            'name': username
-        }
+        comment['user'] = self.user
 
         self._comments[oid] = PersistentDict(comment)
         return comment
@@ -117,8 +124,11 @@ class Storage(object):
 
         oid = comment.get('id')
         comment['updated'] = now.isoformat()
-        self._comments[oid] = PersistentDict(comment)
 
+        for reply in comment.get('replies', []):
+            if not reply.get('user'):
+                reply['user'] = self.user
+        self._comments[oid] = PersistentDict(comment)
         return comment
 
     def delete(self, comment):

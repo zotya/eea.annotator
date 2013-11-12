@@ -5,6 +5,7 @@
 
 .annotator-item .annotator-user {
   text-align: right;
+  border-top: none;
 }
 
 .annotator-item .annotator-user:after {

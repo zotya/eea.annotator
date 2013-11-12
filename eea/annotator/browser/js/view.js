@@ -1,3 +1,7 @@
+if(!jQuery.fn.addBack){
+  jQuery.fn.addBack = jQuery.fn.andSelf;
+}
+
 if(window.EEA === undefined){
   var EEA = {
     who: 'eea.annotator',
@@ -58,7 +62,7 @@ EEA.Annotator.prototype = {
       },
       userString: function(user){
         if(user && user.name && user.id){
-          return user.name + ' @' + user.id;
+          return '@' + user.id + ' (' + user.name + ')';
         }else{
           return user;
         }
@@ -68,7 +72,7 @@ EEA.Annotator.prototype = {
     });
 
     // // Reply plugin
-    //jQuery('#content').annotator('addPlugin', 'Comment');
+    jQuery('#content').annotator('addPlugin', 'Comment');
 
     // Storage plugin
     jQuery('#content').annotator('addPlugin', 'Store', {
