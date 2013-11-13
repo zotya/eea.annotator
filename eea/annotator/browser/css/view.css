@@ -2,12 +2,3 @@
 .eea-annotator {
   display: none;
 }
-
-.annotator-item .annotator-user {
-  text-align: right;
-  border-top: none;
-}
-
-.annotator-item .annotator-user:after {
-  content: ' \21b5';
-}

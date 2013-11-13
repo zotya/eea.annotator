@@ -115,6 +115,27 @@ class Storage(object):
         self._comments[oid] = PersistentDict(comment)
         return comment
 
+    def replies(self, comment):
+        """ Handle replies to comment
+        """
+        cid = comment.get('id')
+        oldComment = self.comments.get(cid, {})
+        oldReplies = oldComment.get('replies', [])
+        replies = comment.get('replies', [])
+
+        for reply in replies:
+            # Delete
+            if reply.pop('remove', False):
+                text = reply.get('reply', '')
+                oldReplies = [r for r in oldReplies if r.get('reply') != text]
+            # Create
+            elif not reply.get('user'):
+                reply['user'] = self.user
+                oldReplies.append(reply)
+
+        comment['replies'] = oldReplies
+        return comment
+
     def edit(self, comment):
         """ Update existing comment
         """
@@ -122,12 +143,10 @@ class Storage(object):
         if isinstance(comment, (str, unicode)):
             comment = json.loads(comment)
 
-        oid = comment.get('id')
         comment['updated'] = now.isoformat()
+        comment = self.replies(comment)
 
-        for reply in comment.get('replies', []):
-            if not reply.get('user'):
-                reply['user'] = self.user
+        oid = comment.get('id')
         self._comments[oid] = PersistentDict(comment)
         return comment
 
