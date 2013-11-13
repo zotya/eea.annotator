@@ -39,7 +39,31 @@ EEA.Annotator = function(context, options){
 EEA.Annotator.prototype = {
   initialize: function(){
     var self = this;
+    self.button = self.context.find('.annotator-button');
+    self.button.attr('title', self.button.data('hide'));
+    self.enabled = true;
+
+    self.button.click(function(evt){
+      evt.preventDefault();
+      return self.click();
+    });
+
     self.reload();
+  },
+
+  click: function(){
+    var self = this;
+    if(self.enabled){
+      self.enabled = false;
+      self.button.addClass('annotator-disabled');
+      self.button.attr('title', self.button.data('show'));
+      jQuery('#content').annotator('destroy');
+    }else{
+      self.enabled = true;
+      self.button.removeClass('annotator-disabled');
+      self.button.attr('title', self.button.data('hide'));
+      self.reload();
+    }
   },
 
   reload: function(){

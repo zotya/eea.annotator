@@ -1,4 +1,21 @@
 /* CSS */
 .eea-annotator {
+}
+
+#content .eea-annotator .annotator-button,
+.eea-annotator .annotator-button {
+  float: right;
+  background: transparent url('++resource++eea.annotator.images/icon.png') no-repeat center center;
+  width: 16px;
+  height: 32px;
+  border: none;
+}
+
+#content .eea-annotator .annotator-button span,
+.eea-annotator .annotator-button span {
   display: none;
+}
+
+.eea-annotator .annotator-disabled {
+  opacity: 0.45;
 }
