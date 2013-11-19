@@ -12,6 +12,7 @@ if(window.EEA === undefined){
 EEA.Annotator = function(context, options){
  var self = this;
   self.context = context;
+  self.target = jQuery('#content');
 
   self.settings = {
     readOnly: self.context.data('readonly') || 0,
@@ -57,7 +58,7 @@ EEA.Annotator.prototype = {
       self.enabled = false;
       self.button.addClass('annotator-disabled');
       self.button.attr('title', self.button.data('show'));
-      jQuery('#content').annotator('destroy');
+      self.target.annotator('destroy');
     }else{
       self.enabled = true;
       self.button.removeClass('annotator-disabled');
@@ -70,12 +71,13 @@ EEA.Annotator.prototype = {
     var self = this;
 
     // Init annotator
-    jQuery('#content').annotator({
-      readOnly: Boolean(self.settings.readOnly)
+    self.target.annotator({
+      readOnly: Boolean(self.settings.readOnly),
+      exactMatch: true
     });
 
     // Permissions plugin
-    jQuery('#content').annotator('addPlugin', 'Permissions', {
+    self.target.annotator('addPlugin', 'Permissions', {
       user: self.settings.user,
       userId: function(user){
         if(user && user.id){
@@ -96,10 +98,10 @@ EEA.Annotator.prototype = {
     });
 
     // // Reply plugin
-    jQuery('#content').annotator('addPlugin', 'Comment');
+    self.target.annotator('addPlugin', 'Comment');
 
     // Storage plugin
-    jQuery('#content').annotator('addPlugin', 'Store', {
+    self.target.annotator('addPlugin', 'Store', {
       prefix: self.settings.prefix,
       urls: self.settings.urls
     });
