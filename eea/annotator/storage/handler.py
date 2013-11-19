@@ -101,12 +101,15 @@ class Storage(object):
     def add(self, comment):
         """ Add inline comment
         """
-        oid = hashlib.md5(u"%s" % comment).hexdigest()
-        now = datetime.now()
+        if isinstance(comment, str):
+            comment = comment.decode('utf-8')
 
-        if isinstance(comment, (str, unicode)):
+        oid = hashlib.md5(comment.encode('utf-8')
+            if isinstance(comment, unicode) else repr(comment)).hexdigest()
+        if isinstance(comment, unicode):
             comment = json.loads(comment)
 
+        now = datetime.now()
         comment['id'] = oid
         comment['created'] = now.isoformat()
         comment['updated'] = now.isoformat()
@@ -139,10 +142,12 @@ class Storage(object):
     def edit(self, comment):
         """ Update existing comment
         """
-        now = datetime.now()
-        if isinstance(comment, (str, unicode)):
+        if isinstance(comment, str):
+            comment = comment.decode('utf-8')
+        if isinstance(comment, unicode):
             comment = json.loads(comment)
 
+        now = datetime.now()
         comment['updated'] = now.isoformat()
         comment = self.replies(comment)
 
@@ -153,7 +158,10 @@ class Storage(object):
     def delete(self, comment):
         """ Delete comment
         """
-        if isinstance(comment, (str, unicode)):
+        if isinstance(comment, str):
+            comment = comment.decode('utf-8')
+        if isinstance(comment, unicode):
             comment = json.loads(comment)
+
         oid = comment.get('id')
         return self._comments.pop(oid)
