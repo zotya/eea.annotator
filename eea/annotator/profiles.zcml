@@ -9,7 +9,7 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="EEA Annotator"
+      title="EEA Annotator (inline comments)"
       directory="profiles/default"
       description="EEA Annotator"
       provides="Products.GenericSetup.interfaces.EXTENSION"

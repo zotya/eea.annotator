@@ -36,6 +36,15 @@
     permission="eea.annotator.view"
     />
 
+  <browser:page
+    name="annotator.comments"
+    for="eea.annotator.interfaces.IAnnotatorAware"
+    layer="eea.annotator.interfaces.ILayer"
+    class=".app.comments.InlineComments"
+    template="zpt/comments.pt"
+    permission="eea.annotator.view"
+    />
+
   <browser:viewlet
     name="eea.annotator"
     layer="eea.annotator.interfaces.ILayer"

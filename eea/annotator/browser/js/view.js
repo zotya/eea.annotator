@@ -82,16 +82,14 @@ EEA.Annotator.prototype = {
       userId: function(user){
         if(user && user.id){
           return user.id;
-        }else{
-          return user;
         }
+        return user;
       },
       userString: function(user){
         if(user && user.name && user.id){
           return '@' + user.id + ' (' + user.name + ')';
-        }else{
-          return user;
         }
+        return user;
       },
       showViewPermissionsCheckbox: false,
       showEditPermissionsCheckbox: false
@@ -118,21 +116,63 @@ jQuery.fn.EEAAnnotator = function(options){
   });
 };
 
-jQuery(document).ready(function(){
-  var items = jQuery(".eea-annotator");
-  if(!items.length){
-    return;
-  }
+/*
+**
+** EEA Annotator Portlet
+**
+*/
 
-  var userid = items.data('userid') || 'anonymous';
-  var username = items.data('username') || userid;
-  var settings = {
-    prefix: jQuery('base').attr('href') + '/annotator.api',
-    user: {
-      id: userid,
-      name: username
-    }
+EEA.AnnotatorPortlet = function(context, options){
+  var self = this;
+  self.context = context;
+  self.settings = {
+
   };
 
-  items.EEAAnnotator(settings);
+  if(options){
+    jQuery.extend(self.settings, options);
+  }
+
+  self.initialize();
+};
+
+EEA.AnnotatorPortlet.prototype = {
+  initialize: function(){
+    var self = this;
+  }
+};
+
+jQuery.fn.EEAAnnotatorPortlet = function(options){
+  return this.each(function(){
+    var context = jQuery(this);
+    var adapter = new EEA.AnnotatorPortlet(context, options);
+    context.data('EEAAnnotatorPortlet', adapter);
+  });
+};
+
+
+jQuery(document).ready(function(){
+
+  // Annotator
+  var items = jQuery(".eea-annotator");
+  if(items.length){
+    var userid = items.data('userid') || 'anonymous';
+    var username = items.data('username') || userid;
+    var settings = {
+      prefix: jQuery('base').attr('href') + '/annotator.api',
+      user: {
+        id: userid,
+        name: username
+      }
+    };
+
+    items.EEAAnnotator(settings);
+  }
+
+  // Annotator Portlet
+  items = jQuery(".eea-annotator-portlet");
+  if(items.length){
+      items.EEAAnnotatorPortlet();
+  }
+
 });
