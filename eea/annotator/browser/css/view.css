@@ -19,3 +19,22 @@
 .eea-annotator .annotator-disabled {
   opacity: 0.45;
 }
+
+/* Portlet */
+dl.portlet dd.eea-annotator-portlet {
+    padding: 0;
+    margin: 0;
+}
+
+.eea-annotator-comment {
+    background-color: #DFD;
+    padding: 0.5em;
+    margin: 0.5em 0;
+    cursor: default;
+    color: #999;
+}
+
+.eea-annotator-comment.missing {
+    background-color: #FDD;
+}
+
