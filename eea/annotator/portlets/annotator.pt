@@ -5,16 +5,14 @@
 
 <dl class="portlet">
 
-    <dt class="portletHeader" tal:condition="view/data/label|nothing">
-        <a tal:content="view/data/label"
-          tal:attributes="href string:${view/context/absolute_url}"/>
-    </dt>
+  <dt class="portletHeader" tal:condition="view/data/label|nothing">
+    <a tal:content="view/data/label"
+      tal:attributes="href string:${view/context/absolute_url}"/>
+  </dt>
 
-    <dd class="portletItem eea-annotator-portlet">
-         <tal:comments
-           condition="exists:view/context/@@annotator.comments"
-           tal:replace="structure view/context/@@annotator.comments" />
-    </dd>
+  <dd class="portletItem eea-annotator-portlet">
+    <div class="annotator-errata"></div>
+  </dd>
 
 </dl>
 </html>

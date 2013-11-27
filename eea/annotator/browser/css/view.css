@@ -26,7 +26,7 @@ dl.portlet dd.eea-annotator-portlet {
     margin: 0;
 }
 
-.eea-annotator-comment {
+.annotator-comment {
     background-color: #DFD;
     padding: 0.5em;
     margin: 0.5em 0;
@@ -34,7 +34,7 @@ dl.portlet dd.eea-annotator-portlet {
     color: #999;
 }
 
-.eea-annotator-comment.missing {
+.annotator-comment.missing {
     background-color: #FDD;
 }
 

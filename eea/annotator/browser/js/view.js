@@ -110,6 +110,9 @@ EEA.Annotator.prototype = {
       urls: self.settings.urls
     });
 
+    // Errata plugin
+    self.target.annotator('addPlugin', 'Errata');
+
   }
 };
 
@@ -145,6 +148,10 @@ EEA.AnnotatorPortlet = function(context, options){
 EEA.AnnotatorPortlet.prototype = {
   initialize: function(){
     var self = this;
+    self.annotatorElement = jQuery('.annotator-wrapper').parent();
+    self.portletWrapper = self.context.parents('.portletWrapper');
+    self.hash = self.portletWrapper ? self.portletWrapper.data('portlethash'): 'AnnotatorPortlet';
+
     self.viewerHideTimer = null;
 
     self.viewer = new Annotator.Viewer({
@@ -162,10 +169,26 @@ EEA.AnnotatorPortlet.prototype = {
       }
     });
 
+    // Events
+    self.annotatorElement
+      .unbind('.' + self.hash)
+      .bind('rangeNormalizeFail.' + self.hash, function(evt, data){
+        self.missing(data);
+      })
+      .bind('afterAnnotationCreated.' + self.hash, function(evt, data){
+        self.create(data);
+      })
+      .bind('annotationUpdated.' + self.hash, function(evt, data){
+        self.update(data);
+      })
+      .bind('annotationDeleted.' + self.hash, function(evt, data){
+        self.remove(data);
+      });
+
     // Add comment text field
     self.viewer.addField({
       load: function(field, annotation){
-        $(field).html(Util.escape(annotation.text));
+        jQuery(field).html(Util.escape(annotation.text));
       }
     });
 
@@ -173,7 +196,7 @@ EEA.AnnotatorPortlet.prototype = {
     self.viewer.addField({
       load: function(field, annotation){
         var userString = EEA.AnnotatorUtil.userString(annotation.user);
-        $(field).html(userString).addClass('annotator-user');
+        jQuery(field).html(userString).addClass('annotator-user');
       }
     });
 
@@ -189,7 +212,7 @@ EEA.AnnotatorPortlet.prototype = {
           "<div style='padding:5px' class='annotator-replies-header'> <span> Replies </span></div>",
           '<div id="Replies"><li class="Replies"></li></div>'
         ].join('\n');
-        html = $(html);
+        html = jQuery(html);
 
         var where = html.find('.Replies');
         jQuery.each(replies, function(idx, reply){
@@ -199,10 +222,10 @@ EEA.AnnotatorPortlet.prototype = {
               '<div class="annotator-user replyuser">', EEA.AnnotatorUtil.userString(reply.user), '</div>',
             '</div>'
           ].join('\n');
-          $(div).appendTo(where);
+          jQuery(div).appendTo(where);
         });
 
-        html.appendTo($(field));
+        html.appendTo(jQuery(field));
       }
     });
 
@@ -213,21 +236,66 @@ EEA.AnnotatorPortlet.prototype = {
     var self = this;
     var comments = self.context.find('.eea-annotator-comment');
     comments.each(function(){
-      $(this)
-        .mouseover(function(evt){
-          self.clearViewerHideTimer();
-          var viewerComment = $(this);
-
-          var data = viewerComment.data('comment');
-          var location = Util.mousePosition(evt, this);
-          self.viewer.element.css(location);
-          self.viewer.load([data]);
-
-        })
-        .mouseout(function(evt){
-          return self.startViewerHideTimer();
-        });
+      var comment = jQuery(this);
+      self.reloadComment(comment);
     });
+  },
+
+  reloadComment: function(comment){
+    var self = this;
+    comment
+      .unbind('.' + self.hash)
+      .bind('mouseover.' + self.hash, function(evt){
+        self.clearViewerHideTimer();
+        var viewerComment = jQuery(this);
+
+        var data = viewerComment.data('comment');
+        var location = Util.mousePosition(evt, this);
+        self.viewer.element.css(location);
+        self.viewer.load([data]);
+      })
+      .bind('mouseout.' + self.hash, function(evt){
+        return self.startViewerHideTimer();
+      });
+  },
+
+  missing: function(annotation){
+    var self = this;
+    self.context.find('[data-id="' + annotation.id + '"]').addClass('missing');
+  },
+
+  create: function(annotation){
+    var self = this;
+    var comment = jQuery('<div data-id="' + annotation.id + '">')
+      .addClass('eea-annotator-comment')
+      .data('id', annotation.id)
+      .data('comment', annotation)
+      .hide();
+    jQuery('<div>')
+      .addClass('comment-quote')
+      .text(annotation.quote)
+      .appendTo(comment);
+
+    comment
+      .prependTo(self.context.find('.eea-annotator-comments'))
+      .slideDown(function(){
+        self.reloadComment(comment);
+      });
+  },
+
+  remove: function(annotation){
+    var self = this;
+    var comment = self.context.find('[data-id="' + annotation.id + '"]');
+    comment.slideUp(function(){
+      comment.remove();
+    });
+  },
+
+  update: function(annotation){
+    var self = this;
+    var comment = self.context.find('[data-id="' + annotation.id + '"]');
+    comment.data('comment', annotation);
+    self.reloadComment(comment);
   },
 
   clearViewerHideTimer: function(){
@@ -270,10 +338,10 @@ jQuery(document).ready(function(){
     items.EEAAnnotator(settings);
   }
 
-  // Annotator Portlet
-  items = jQuery(".eea-annotator-portlet");
-  if(items.length){
-    items.EEAAnnotatorPortlet();
-  }
+//  // Annotator Portlet
+//  items = jQuery(".eea-annotator-portlet");
+//  if(items.length){
+//    items.EEAAnnotatorPortlet();
+//  }
 
 });
