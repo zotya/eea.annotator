@@ -25,19 +25,3 @@ dl.portlet dd.eea-annotator-portlet {
     padding: 0;
     margin: 0;
 }
-
-.annotator-comment {
-    background-color: #DFD;
-    padding: 0.5em;
-    margin: 0.5em 0;
-    cursor: default;
-    color: #999;
-}
-
-.annotator-comment.missing {
-    background-color: #FDD;
-}
-
-.annotator-hl {
-    background-color: #DFD;
-}
