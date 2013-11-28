@@ -3,14 +3,14 @@
   tal:omit-tag=""
   i18n:domain="eea">
 
-<dl class="portlet">
+<dl class="portlet annotator-portlet">
 
   <dt class="portletHeader" tal:condition="view/data/label|nothing">
     <a tal:content="view/data/label"
       tal:attributes="href string:${view/context/absolute_url}"/>
   </dt>
 
-  <dd class="portletItem eea-annotator-portlet">
+  <dd class="portletItem annotator-portlet-body">
     <div class="annotator-errata"></div>
   </dd>
 

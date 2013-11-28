@@ -126,6 +126,68 @@ jQuery.fn.EEAAnnotator = function(options){
 };
 
 
+// EEA Annotator Portlet
+EEA.AnnotatorPortlet = function(context, options){
+  var self = this;
+  self.context = context;
+  self.settings = {
+
+  };
+
+  if(options){
+    jQuery.extend(self.settings, options);
+  }
+
+  self.initialize();
+};
+
+EEA.AnnotatorPortlet.prototype = {
+  initialize: function(){
+    var self = this;
+    self.header = self.context.find('.portletHeader');
+    self.parent = self.context.parent();
+    self.width = self.context.width();
+
+    // Fullscreen button
+    jQuery('<div>')
+      .attr('title', 'Toggle Full Screen Mode')
+      .addClass('annotator-fullscreen-button')
+      .prependTo(self.header);
+
+    self.header.find('.annotator-fullscreen-button,a').click(function(evt){
+      evt.preventDefault();
+      self.fullscreen(evt);
+    });
+  },
+
+  fullscreen: function(){
+    var self = this;
+
+    if(self.context.hasClass('fullscreen')){
+      self.context.slideUp(function(){
+        self.context.removeClass('fullscreen');
+        self.context.width('auto');
+        self.context.slideDown();
+      });
+    }else{
+      self.context.slideUp(function(){
+        self.context.addClass('fullscreen');
+        self.context.width(self.width);
+        self.context.slideDown();
+      });
+    }
+  }
+};
+
+jQuery.fn.EEAAnnotatorPortlet = function(options){
+  return this.each(function(){
+    var context = jQuery(this);
+    var adapter = new EEA.AnnotatorPortlet(context, options);
+    context.data('EEAAnnotatorPortlet', adapter);
+  });
+};
+
+
 jQuery(document).ready(function(){
 
   // Annotator
@@ -142,6 +204,12 @@ jQuery(document).ready(function(){
     };
 
     items.EEAAnnotator(settings);
+  }
+
+  // Annotator Portlet
+  items = jQuery('.annotator-portlet');
+  if(items.length){
+    items.EEAAnnotatorPortlet();
   }
 
 });

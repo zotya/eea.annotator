@@ -3,10 +3,14 @@
 from zope import schema
 from zope.formlib import form
 from zope.interface import implements
+from zope.component import queryAdapter
+from zope.security import checkPermission
+from zope.component.hooks import getSite
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.CMFCore.utils import getToolByName
+from eea.annotator.interfaces import IAnnotatorStorage
+from eea.annotator.controlpanel.interfaces import ISettings
 from eea.annotator.config import EEAMessageFactory as _
 
 class IAnnotatorPortlet(IPortletDataProvider):
@@ -64,6 +68,17 @@ class Renderer(base.Renderer):
     def available(self):
         """By default, portlets are available
         """
-        return getToolByName(
-            self.context, 'portal_membership').checkPermission(
-                'Review portal content', self.context)
+
+        if not checkPermission('eea.annotator.view', self.context):
+            return False
+
+        storage = queryAdapter(self.context, IAnnotatorStorage)
+        if storage and storage.disabled:
+            return False
+
+        site = getSite()
+        settings = queryAdapter(site, ISettings)
+        if settings.disabled(self.context):
+            return False
+
+        return True
