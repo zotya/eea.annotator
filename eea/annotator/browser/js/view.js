@@ -167,13 +167,13 @@ EEA.AnnotatorPortlet.prototype = {
       self.context.slideUp(function(){
         self.context.removeClass('fullscreen');
         self.context.width('auto');
-        self.context.slideDown();
+        self.context.slideDown('fast');
       });
     }else{
       self.context.slideUp(function(){
         self.context.addClass('fullscreen');
         self.context.width(self.width);
-        self.context.slideDown();
+        self.context.slideDown('fast');
       });
     }
   }

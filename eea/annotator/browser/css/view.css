@@ -47,15 +47,15 @@ dl.portlet dd.annotator-portlet-body {
   z-index: 999;
   overflow-x: hidden;
   overflow-y: auto;
-  height: 95%;
-  box-shadow: 0px 0px 50px #000;
-  border: 1px solid #999;
+  height: 100%;
+  box-shadow: 0px 0px 50px #333;
   background-color: #fff;
-  min-width: 300px;
+  padding: 0 2em !important;
 }
 
 .annotator-portlet.fullscreen .portletHeader {
   background-color: #fff;
+  padding-top: 1em;
 }
 
 #portal-column-one .annotator-portlet.fullscreen {
@@ -79,4 +79,22 @@ dl.portlet dd.annotator-portlet-body {
 
 .annotator-fullscreen-button:active {
   box-shadow: -4px 4px 0px #999;
+}
+
+.annotator-portlet.fullscreen .annotator-fullscreen-button {
+  box-shadow: none;
+  border: none;
+  border-bottom: 2px solid #000000;
+}
+
+.annotator-portlet.fullscreen .annotator-fullscreen-button:hover {
+  box-shadow: none;
+  border: none;
+  border-bottom: 2px solid #000000;
+}
+
+.annotator-portlet.fullscreen .annotator-fullscreen-button:active {
+  box-shadow: none;
+  border: none;
+  border-bottom: 2px solid #000000;
 }
