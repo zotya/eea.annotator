@@ -44,13 +44,16 @@ dl.portlet dd.annotator-portlet-body {
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 999;
+  z-index: 200100;
   overflow-x: hidden;
   overflow-y: auto;
   height: 100%;
-  box-shadow: 0px 0px 50px #333;
   background-color: #fff;
   padding: 0 2em !important;
+  box-shadow: 0 0 50px #333;
+  /*-webkit-box-shadow: inset 5px 0 5px rgba(0, 0, 0, 0.15);*/
+     /*-moz-box-shadow: inset 5px 0 5px rgba(0,0,0,.15);*/
+          /*box-shadow: inset 5px 0 5px rgba(0, 0, 0, 0.15);*/
 }
 
 .annotator-portlet.fullscreen .portletHeader {
@@ -61,6 +64,9 @@ dl.portlet dd.annotator-portlet-body {
 #portal-column-one .annotator-portlet.fullscreen {
   left: 0;
   right: auto;
+  /*-webkit-box-shadow: inset -5px 0 5px rgba(0, 0, 0, 0.15);*/
+     /*-moz-box-shadow: inset -5px 0 5px rgba(0,0,0,.15);*/
+          /*box-shadow: inset -5px 0 5px rgba(0, 0, 0, 0.15);*/
 }
 
 .annotator-fullscreen-button {
@@ -97,4 +103,26 @@ dl.portlet dd.annotator-portlet-body {
   box-shadow: none;
   border: none;
   border-bottom: 2px solid #000000;
+}
+
+.annotator-portlet.fullscreen::-webkit-scrollbar {
+  width: 7px;
+}
+
+.annotator-portlet.fullscreen::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
+.annotator-portlet.fullscreen::-webkit-scrollbar-track:hover {
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+
+.annotator-portlet.fullscreen::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 5px;
+}
+
+.annotator-portlet.fullscreen::-webkit-scrollbar-thumb:hover {
+  background-color: #666;
 }
