@@ -9,15 +9,6 @@ if(window.EEA === undefined){
   };
 }
 
-EEA.AnnotatorUtil = {
-  userString: function(user){
-    if(user && user.name && user.id){
-      return '@' + user.id + ' (' + user.name + ')';
-    }
-    return user;
-  }
-};
-
 EEA.Annotator = function(context, options){
   var self = this;
   self.context = context;
@@ -85,6 +76,17 @@ EEA.Annotator.prototype = {
       exactMatch: true
     });
 
+    // Add comment date
+    self.target.annotator('addField', {
+      load: function(field, annotation){
+        var published = new Date(annotation.updated || annotation.created);
+        var dateString = Util.dateString(published);
+        $(field)
+          .html(dateString)
+          .addClass('annotator-date')
+          .attr('title', published.toDateString());
+      }
+    });
     // Permissions plugin
     self.target.annotator('addPlugin', 'Permissions', {
       user: self.settings.user,
@@ -95,7 +97,7 @@ EEA.Annotator.prototype = {
         return user;
       },
       userString: function(user){
-        return EEA.AnnotatorUtil.userString(user);
+        return Util.userString(user);
       },
       showViewPermissionsCheckbox: false,
       showEditPermissionsCheckbox: false
