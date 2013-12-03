@@ -19,7 +19,7 @@
     factory=".interfaces.AttributeAnnotations"
     />
 
-  <adapter
+  <adapter name="eea.annotator"
     for="eea.annotator.interfaces.IAnnotatorAware"
     provides="archetypes.schemaextender.interfaces.ISchemaExtender"
     factory=".schema.EEASchemaExtender"
