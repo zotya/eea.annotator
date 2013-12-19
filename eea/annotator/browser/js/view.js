@@ -150,6 +150,15 @@ EEA.AnnotatorPortlet.prototype = {
     self.parent = self.context.parent();
     self.width = self.context.width();
 
+    self.context.find('.annotator-errata').off('.AnnotatorPortlet');
+    self.context.find('.annotator-errata').on('beforeClick.AnnotatorPortlet', function(evt, data){
+      if(self.context.hasClass('fullscreen')){
+        return self.highlight(data);
+      }else{
+        return self.fullscreen(evt, data);
+      }
+    });
+
     // Fullscreen button
     jQuery('<div>')
       .attr('title', 'Toggle Full Screen Mode')
@@ -162,7 +171,7 @@ EEA.AnnotatorPortlet.prototype = {
     });
   },
 
-  fullscreen: function(){
+  fullscreen: function(evt, annotation){
     var self = this;
 
     if(self.context.hasClass('fullscreen')){
@@ -176,8 +185,24 @@ EEA.AnnotatorPortlet.prototype = {
         self.context.addClass('fullscreen');
         self.context.width(self.width);
         self.context.slideDown('fast');
+        self.highlight(annotation);
       });
     }
+  },
+
+  highlight: function(annotation){
+    var self = this;
+    var highlights = annotation.highlights || [];
+    jQuery('.annotator-hl').removeClass('hover');
+    jQuery.each(highlights, function(idx, highlight){
+      if(idx === 0){
+        var scrollTop = jQuery(highlight).position().top;
+        jQuery('html,body').animate({
+          scrollTop: scrollTop
+        });
+      }
+      jQuery(highlight).addClass('hover');
+    });
   }
 };
 
