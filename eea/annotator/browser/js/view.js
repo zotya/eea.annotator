@@ -192,7 +192,10 @@ EEA.AnnotatorPortlet.prototype = {
 
   highlight: function(annotation){
     var self = this;
-    var highlights = annotation.highlights || [];
+    var highlights = [];
+    if(annotation && annotation.highlights){
+      highlights = annotation.highlights;
+    }
     jQuery('.annotator-hl').removeClass('hover');
     jQuery.each(highlights, function(idx, highlight){
       if(idx === 0){
