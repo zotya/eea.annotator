@@ -153,9 +153,9 @@ EEA.AnnotatorPortlet.prototype = {
     self.context.find('.annotator-errata').off('.AnnotatorPortlet');
     self.context.find('.annotator-errata').on('beforeClick.AnnotatorPortlet', function(evt, data){
       if(self.context.hasClass('fullscreen')){
-        return self.highlight(data);
+        return self.highlight(data.annotation, data.element);
       }else{
-        return self.fullscreen(evt, data);
+        return self.fullscreen(data.annotation, data.element);
       }
     });
 
@@ -167,11 +167,11 @@ EEA.AnnotatorPortlet.prototype = {
 
     self.header.find('.annotator-fullscreen-button,a').click(function(evt){
       evt.preventDefault();
-      self.fullscreen(evt);
+      self.fullscreen();
     });
   },
 
-  fullscreen: function(evt, annotation){
+  fullscreen: function(annotation, element){
     var self = this;
 
     if(self.context.hasClass('fullscreen')){
@@ -185,12 +185,18 @@ EEA.AnnotatorPortlet.prototype = {
         self.context.addClass('fullscreen');
         self.context.width(self.width);
         self.context.slideDown('fast');
-        self.highlight(annotation);
+        self.highlight(annotation, element);
+        if(element && element.position){
+          var scrollTop = element.position().top;
+          self.context.animate({
+            scrollTop: scrollTop
+          });
+        }
       });
     }
   },
 
-  highlight: function(annotation){
+  highlight: function(annotation, element){
     var self = this;
     var highlights = [];
     if(annotation && annotation.highlights){
