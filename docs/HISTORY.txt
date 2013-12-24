@@ -3,6 +3,8 @@ Changelog
 
 1.0-dev - (unreleased)
 ----------------------
+* Change: updated docsting for inline comment fileds class
+  [ghicaale refs #16666]
 * Upgrade step: (optional) In order to optimize requests per page within
   ZMI portal_javascripts / portal_css manually reorder annotator JS/CSS resources:
   ++resource++jquery.annotator.css, ++resource++eea.annotator.view.css,
