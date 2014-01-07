@@ -163,5 +163,9 @@ class Storage(object):
         if isinstance(comment, unicode):
             comment = json.loads(comment)
 
+        # History enabled
+        if comment.get('deleted'):
+            return self.edit(comment)
+
         oid = comment.get('id')
         return self._comments.pop(oid)

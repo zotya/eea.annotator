@@ -16,6 +16,7 @@ EEA.Annotator = function(context, options){
 
   self.settings = {
     readOnly: self.context.data('readonly') || 0,
+    history: true,
     prefix: '',
     user: {
       id: 'anonymous',
@@ -109,7 +110,8 @@ EEA.Annotator.prototype = {
     // Storage plugin
     self.target.annotator('addPlugin', 'Store', {
       prefix: self.settings.prefix,
-      urls: self.settings.urls
+      urls: self.settings.urls,
+      history: self.settings.history
     });
 
     // Errata plugin
