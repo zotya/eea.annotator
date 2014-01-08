@@ -16,6 +16,7 @@ EEA.Annotator = function(context, options){
 
   self.settings = {
     readOnly: self.context.data('readonly') || 0,
+    history: true,
     prefix: '',
     user: {
       id: 'anonymous',
@@ -109,7 +110,8 @@ EEA.Annotator.prototype = {
     // Storage plugin
     self.target.annotator('addPlugin', 'Store', {
       prefix: self.settings.prefix,
-      urls: self.settings.urls
+      urls: self.settings.urls,
+      history: self.settings.history
     });
 
     // Errata plugin
@@ -150,12 +152,20 @@ EEA.AnnotatorPortlet.prototype = {
     self.parent = self.context.parent();
     self.width = self.context.width();
 
-    self.context.find('.annotator-errata').off('.AnnotatorPortlet');
-    self.context.find('.annotator-errata').on('beforeClick.AnnotatorPortlet', function(evt, data){
+    // Handle Events
+    var errata = self.context.find('.annotator-errata');
+    errata.off('.AnnotatorPortlet');
+    errata.on('beforeClick.AnnotatorPortlet', function(evt, data){
       if(self.context.hasClass('fullscreen')){
         return self.highlight(data.annotation, data.element);
       }else{
         return self.fullscreen(data.annotation, data.element);
+      }
+    });
+
+    errata.on('annotationsErrataLoaded.AnnotatorPortlet', function(evt, data){
+      if(window.EEA && window.EEA.eea_accordion){
+        EEA.eea_accordion(errata);
       }
     });
 
