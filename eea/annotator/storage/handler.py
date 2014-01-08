@@ -164,7 +164,7 @@ class Storage(object):
             comment = json.loads(comment)
 
         # History enabled
-        if comment.get('deleted'):
+        if comment.get('deleted', None) is not None:
             return self.edit(comment)
 
         oid = comment.get('id')
