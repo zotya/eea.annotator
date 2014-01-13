@@ -16,7 +16,9 @@ class EEAFixture(PloneSandboxLayer):
         """ Setup Zope
         """
         import eea.annotator
+        import eea.icons
         self.loadZCML(package=eea.annotator)
+        self.loadZCML(package=eea.icons)
         z2.installProduct(app, 'eea.annotator')
 
     def tearDownZope(self, app):
