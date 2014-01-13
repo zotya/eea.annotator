@@ -38,6 +38,7 @@ setup(name=NAME,
           'setuptools',
           # -*- Extra requirements: -*-
           'eea.jquery > 6.6',
+          'eea.icons',
       ],
       entry_points="""
       # -*- entry_points -*-

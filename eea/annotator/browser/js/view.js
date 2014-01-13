@@ -170,9 +170,11 @@ EEA.AnnotatorPortlet.prototype = {
     });
 
     // Fullscreen button
-    jQuery('<div>')
+    jQuery('<span>')
       .attr('title', 'Toggle Full Screen Mode')
       .addClass('annotator-fullscreen-button')
+      .addClass('eea-icon')
+      .addClass('eea-icon-expand')
       .prependTo(self.header);
 
     self.header.find('.annotator-fullscreen-button,a').click(function(evt){
@@ -184,14 +186,19 @@ EEA.AnnotatorPortlet.prototype = {
   fullscreen: function(annotation, element){
     var self = this;
 
+    var button = self.header.find('.annotator-fullscreen-button');
     if(self.context.hasClass('fullscreen')){
       self.context.slideUp(function(){
+        button.removeClass('eea-icon-compress');
+        button.addClass('eea-icon-expand');
         self.context.removeClass('fullscreen');
         self.context.width('auto');
         self.context.slideDown('fast');
       });
     }else{
       self.context.slideUp(function(){
+        button.addClass('eea-icon-compress');
+        button.removeClass('eea-icon-expand');
         self.context.addClass('fullscreen');
         self.context.width(self.width);
         self.context.slideDown('fast');

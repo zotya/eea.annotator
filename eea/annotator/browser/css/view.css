@@ -70,39 +70,8 @@ dl.portlet dd.annotator-portlet-body {
 }
 
 .annotator-fullscreen-button {
-  border: 1px solid #000;
-  width: 10px;
   float: right;
-  margin-top: 9px;
-  height: 10px;
   cursor: pointer;
-  box-shadow: -2px 2px 0px #999;
-}
-
-.annotator-fullscreen-button:hover {
-  box-shadow: -3px 3px 0px #999;
-}
-
-.annotator-fullscreen-button:active {
-  box-shadow: -4px 4px 0px #999;
-}
-
-.annotator-portlet.fullscreen .annotator-fullscreen-button {
-  box-shadow: none;
-  border: none;
-  border-bottom: 2px solid #000000;
-}
-
-.annotator-portlet.fullscreen .annotator-fullscreen-button:hover {
-  box-shadow: none;
-  border: none;
-  border-bottom: 2px solid #000000;
-}
-
-.annotator-portlet.fullscreen .annotator-fullscreen-button:active {
-  box-shadow: none;
-  border: none;
-  border-bottom: 2px solid #000000;
 }
 
 .annotator-portlet.fullscreen::-webkit-scrollbar {
@@ -126,3 +95,4 @@ dl.portlet dd.annotator-portlet-body {
 .annotator-portlet.fullscreen::-webkit-scrollbar-thumb:hover {
   background-color: #666;
 }
+
