@@ -81,7 +81,7 @@ EEA.Annotator.prototype = {
     self.target.annotator('addField', {
       load: function(field, annotation){
         var iso_date = annotation.created;
-        if (iso_date.substr(iso_date.length-1) != 'Z') {
+        if (!iso_date.endsWith('Z')) {
           iso_date += 'Z';
         }
         var published = new Date(iso_date);
