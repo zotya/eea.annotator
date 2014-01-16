@@ -109,7 +109,7 @@ class Storage(object):
         if isinstance(comment, unicode):
             comment = json.loads(comment)
 
-        now = datetime.now()
+        now = datetime.utcnow()
         comment['id'] = oid
         comment['created'] = now.isoformat()
         comment['updated'] = now.isoformat()
@@ -147,7 +147,7 @@ class Storage(object):
         if isinstance(comment, unicode):
             comment = json.loads(comment)
 
-        now = datetime.now()
+        now = datetime.utcnow()
         comment['updated'] = now.isoformat()
         comment = self.replies(comment)
 

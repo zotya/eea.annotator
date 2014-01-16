@@ -80,7 +80,8 @@ EEA.Annotator.prototype = {
     // Add comment date
     self.target.annotator('addField', {
       load: function(field, annotation){
-        var published = new Date(annotation.updated || annotation.created);
+        var iso_date = annotation.updated || annotation.created;
+        var published = new Date(iso_date+='Z');
         var dateString = Util.dateString(published);
         $(field)
           .html(dateString)
