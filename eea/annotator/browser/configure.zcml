@@ -59,6 +59,11 @@
    />
 
   <browser:resource
+    name="eea.annotator.edit.css"
+    file="./css/edit.css"
+   />
+
+  <browser:resource
     name="eea.annotator.view.js"
     file="./js/view.js"
    />

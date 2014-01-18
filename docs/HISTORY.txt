@@ -3,6 +3,8 @@ Changelog
 
 1.0-dev - (unreleased)
 ----------------------
+* Bug fix: Handle inline comments colors in edit mode
+  [batradav refs #17705]
 * Bug fix: treat case when datetime comes from backend in js with Zulu
   [olimpiurob #17999]
 * Bug fix: treat datetime coming from backend as UTC. Firefox and Chrome treat
