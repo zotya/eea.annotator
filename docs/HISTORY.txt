@@ -3,6 +3,8 @@ Changelog
 
 1.0-dev - (unreleased)
 ----------------------
+* Feature: Added basic annotator permissions
+  [olimpiurob #18000]
 * Bug fix: Handle inline comments colors in edit mode
   [batradav refs #17705]
 * Bug fix: treat case when datetime comes from backend in js with Zulu
