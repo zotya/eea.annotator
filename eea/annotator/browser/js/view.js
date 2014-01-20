@@ -106,9 +106,9 @@ EEA.Annotator.prototype = {
       },
       permissions: {
         'read':   [],
-        'update': [self.settings.user],
+        'update': [self.settings.user.id],
         'delete': [],
-        'admin':  [self.settings.user]
+        'admin':  [self.settings.user.id]
       },
       showViewPermissionsCheckbox: false,
       showEditPermissionsCheckbox: false
