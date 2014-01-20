@@ -142,7 +142,7 @@ EEA.Annotator.prototype = {
     self.target.annotator('addField', {
       load: function(field, annotation){
         var iso_date = annotation.created;
-        if (!iso_date.endsWith('Z')) {
+        if (iso_date.substr(iso_date.length-1) != 'Z') {
           iso_date += 'Z';
         }
         var published = new Date(iso_date);
@@ -164,6 +164,12 @@ EEA.Annotator.prototype = {
       },
       userString: function(user){
         return Util.userString(user);
+      },
+      permissions: {
+        'read':   [],
+        'update': [self.settings.user.id],
+        'delete': [],
+        'admin':  [self.settings.user.id]
       },
       showViewPermissionsCheckbox: false,
       showEditPermissionsCheckbox: false
