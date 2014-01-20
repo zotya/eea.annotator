@@ -171,7 +171,7 @@ class AnnotationsEdit(Annotations):
             logger.exception(err)
             return self.jsonify(err, 400)
         else:
-            return self.jsonify(None, 204)
+            return self.jsonify(item, 204)
 
 
 class AnnotationsSearch(BrowserView):

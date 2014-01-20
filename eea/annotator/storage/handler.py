@@ -9,6 +9,7 @@ from eea.annotator.interfaces import IAnnotatorStorage
 from Products.CMFCore.utils import getToolByName
 from eea.annotator.config import PROJECTNAME
 from persistent.dict import PersistentDict
+from eea.annotator.config import EEAMessageFactory as _
 
 class Storage(object):
     """ Annotator storage adapter
@@ -57,6 +58,13 @@ class Storage(object):
             'id': name,
             'name': title
         }
+
+    @property
+    def date(self):
+        """ Current date
+        """
+        now = datetime.utcnow()
+        return now.isoformat()
 
     @property
     def comments(self):
@@ -109,10 +117,8 @@ class Storage(object):
         if isinstance(comment, unicode):
             comment = json.loads(comment)
 
-        now = datetime.utcnow()
         comment['id'] = oid
-        comment['created'] = now.isoformat()
-        comment['updated'] = now.isoformat()
+        comment['created'] = comment['updated'] = self.date
         comment['user'] = self.user
 
         self._comments[oid] = PersistentDict(comment)
@@ -134,12 +140,13 @@ class Storage(object):
             # Create
             elif not reply.get('user'):
                 reply['user'] = self.user
+                reply['created'] = self.date
                 oldReplies.append(reply)
 
         comment['replies'] = oldReplies
         return comment
 
-    def edit(self, comment):
+    def edit(self, comment, delete=False):
         """ Update existing comment
         """
         if isinstance(comment, str):
@@ -147,8 +154,19 @@ class Storage(object):
         if isinstance(comment, unicode):
             comment = json.loads(comment)
 
-        now = datetime.utcnow()
-        comment['updated'] = now.isoformat()
+        comment['updated'] = self.date
+
+        # Preserve history for comment's close/reopen
+        if delete:
+            reply = {}
+            deleted = comment.get('deleted', False)
+            if deleted:
+                reply['reply'] = _('Comment closed').decode('utf-8')
+            else:
+                reply['reply'] = _('Comment reopened').decode('utf-8')
+            comment.setdefault('replies', [])
+            comment['replies'].append(reply)
+
         comment = self.replies(comment)
 
         oid = comment.get('id')
@@ -165,7 +183,7 @@ class Storage(object):
 
         # History enabled
         if comment.get('deleted', None) is not None:
-            return self.edit(comment)
+            return self.edit(comment, delete=True)
 
         oid = comment.get('id')
         return self._comments.pop(oid)
