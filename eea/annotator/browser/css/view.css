@@ -96,3 +96,22 @@ dl.portlet dd.annotator-portlet-body {
   background-color: #666;
 }
 
+.eea-accordion-panel > h2 {
+  background-color: #E2E2E2;
+  border: 1px solid #E0E0E0;
+  margin: 0;
+  font-size: 115%;
+  color: #00446A;
+  line-height: 3em;
+  padding: 0 10px;
+  font-weight: bold;
+}
+
+.eea-accordion-panel > h2 .eea-icon:before {
+  content: "\f053";
+}
+
+.eea-accordion-panel h2:hover > .eea-icon:before,
+.eea-accordion-panel .current > .eea-icon:before {
+    content: "\f078";
+}
