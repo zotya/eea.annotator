@@ -3,6 +3,8 @@ Changelog
 
 1.0-dev - (unreleased)
 ----------------------
+* Feature: Log inline comments closing and re-opening using auto-replies
+  [voineali refs #18080]
 * Change: Changed permission settings for annotator
   [olimpiurob #18000]
 * Feature: Added basic annotator permissions
