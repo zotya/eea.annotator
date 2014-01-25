@@ -1,5 +1,6 @@
 <div class="eea-annotator" tal:attributes="
   data-readonly python:int(view.readOnly);
+  data-autosync python:int(view.autoSync);
   data-userid python:view.userid;
   data-username python:view.username;"
   tal:condition="view/available">

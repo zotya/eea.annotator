@@ -70,6 +70,66 @@ if(!EEA.eea_accordion){
   };
 }
 
+EEA.AnnotatorWorker = {
+  running: null,
+  interval: 0,
+  callback: null,
+
+  start: function(interval, url, callback){
+    var self = this;
+
+    // Avoid multiple instances
+    if(self.running){
+      self.log('auto-sync already running');
+      return;
+    }
+
+    if(interval <= 0){
+      self.log('auto-sync is disabled');
+      return;
+    }
+
+    self.url = url;
+    self.callback = callback;
+
+    if(interval < 1000){
+      interval *= 1000;
+    }
+
+    self.interval = interval;
+    self.running = true;
+    self.log('auto-sync started. Running every ' + interval + 'ms');
+    self.run();
+  },
+
+  stop: function(){
+    var self = this;
+    if(self.running){
+      clearTimeout(self.running);
+      self.running = null;
+      self.log('auto-sync stopped');
+    }
+  },
+
+  run: function(){
+    var self = this;
+    self.running = setTimeout(
+      function(){
+        self.callback('Running heavy stuff @ ' + self.url);
+        return self.run();
+      },
+      self.interval
+    );
+  },
+
+  log: function(msg){
+    if(window.console){
+      console.log('eea.annotator: ' + msg);
+    }
+  }
+};
+
+
 EEA.Annotator = function(context, options){
   var self = this;
   self.context = context;
@@ -77,11 +137,13 @@ EEA.Annotator = function(context, options){
 
   self.settings = {
     readOnly: self.context.data('readonly') || 0,
+    autoSync: self.context.data('autosync') || 0,
     history: true,
+    worker: '',
     prefix: '',
     user: {
-      id: 'anonymous',
-      name: 'Anonymous'
+      id: self.context.data('userid') || 'anonymous',
+      name: self.context.data('username') || 'Anonymous'
     },
     urls: {
       create:  '/annotations_edit',
@@ -111,6 +173,9 @@ EEA.Annotator.prototype = {
       return self.click();
     });
 
+    // Auto-sync inline comments
+    self.worker = EEA.AnnotatorWorker;
+
     self.reload();
   },
 
@@ -121,6 +186,7 @@ EEA.Annotator.prototype = {
       self.button.addClass('annotator-disabled');
       self.button.attr('title', self.button.data('show'));
       self.target.annotator('destroy');
+      self.worker.stop();
     }else{
       self.enabled = true;
       self.button.removeClass('annotator-disabled');
@@ -142,7 +208,7 @@ EEA.Annotator.prototype = {
     self.target.annotator('addField', {
       load: function(field, annotation){
         var iso_date = annotation.created;
-        if (iso_date.substr(iso_date.length-1) != 'Z') {
+        if (iso_date.substr(iso_date.length-1) !== 'Z') {
           iso_date += 'Z';
         }
         var published = new Date(iso_date);
@@ -188,6 +254,15 @@ EEA.Annotator.prototype = {
     // Errata plugin
     self.target.annotator('addPlugin', 'Errata');
 
+    // Auto-sync inline comments in background
+    self.worker.start(self.settings.autoSync, self.settings.worker, self.sync);
+  },
+
+  sync: function(data){
+    var self = this;
+    if(window.console){
+      console.log(data);
+    }
   }
 };
 
@@ -317,14 +392,13 @@ jQuery(document).ready(function(){
   // Annotator
   var items = jQuery(".eea-annotator");
   if(items.length){
-    var userid = items.data('userid') || 'anonymous';
-    var username = items.data('username') || userid;
+    var baseurl = jQuery('base').attr('href');
+    if(baseurl.substring(baseurl.length - 1) === "/"){
+      baseurl = baseurl.substring(0, baseurl.length - 1);
+    }
     var settings = {
-      prefix: jQuery('base').attr('href') + '/annotator.api',
-      user: {
-        id: userid,
-        name: username
-      }
+      worker: baseurl + '/annotator.api/annotations_view',
+      prefix: baseurl + '/annotator.api'
     };
 
     items.EEAAnnotator(settings);

@@ -53,6 +53,12 @@ class Annotator(common.ViewletBase):
         return storage.readOnly if storage else False
 
     @property
+    def autoSync(self):
+        """ Auto-sync inline comments interval
+        """
+        return self.settings.autoSync
+
+    @property
     def available(self):
         """ Available
         """
