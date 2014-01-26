@@ -92,13 +92,13 @@ EEA.AnnotatorWorker = {
     self.url = url;
     self.callback = callback;
 
+    self.log('auto-sync started. Running every ' + interval + 's');
     if(interval < 1000){
       interval *= 1000;
     }
 
     self.interval = interval;
     self.running = true;
-    self.log('auto-sync started. Running every ' + interval + 'ms');
     self.run();
   },
 
@@ -115,8 +115,11 @@ EEA.AnnotatorWorker = {
     var self = this;
     self.running = setTimeout(
       function(){
-        self.callback('Running heavy stuff @ ' + self.url);
-        return self.run();
+        self.callback("Auto-sync in progress: " + self.url);
+//        jQuery.getJSON(self.url, {}, function(data){
+//          self.callback(data);
+//          return self.run();
+//        });
       },
       self.interval
     );
