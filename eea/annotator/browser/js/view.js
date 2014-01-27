@@ -334,6 +334,8 @@ EEA.AnnotatorPortlet.prototype = {
     jQuery('.annotator-portlet').on('commentCollapsed', '.erratum-comment', function(evt, data) {
       if (typeof tinymce !== 'undefined' ) {
         var quoted = data.annotation.quote;
+        // Split newlines
+        quoted = quoted.split('\n');
         var ed = tinymce.activeEditor;
         var ed_win = ed.getWin();
 
@@ -343,7 +345,24 @@ EEA.AnnotatorPortlet.prototype = {
         });
 
         ed.focus();
-        ed_win.find(quoted);
+
+        var start_range;
+        var selection = ed.selection;
+
+        for (var idx = 0, len = quoted.length; idx < len; idx++) {
+          if (quoted[idx].length > 0) {
+            ed_win.find(quoted[idx]);
+            var current = selection.getRng();
+            // Get the range for the first element - start_range
+            if (idx === 0) {
+              start_range = current.cloneRange();
+            }
+            
+            // Add to the start_range the current range container and endOffset
+            start_range.setEnd(current.startContainer, current.endOffset);
+            selection.setRng(start_range);
+          }
+        }
       }
     });
 

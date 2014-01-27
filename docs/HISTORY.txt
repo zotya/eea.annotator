@@ -3,6 +3,9 @@ Changelog
 
 1.1-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed matching on comment texts spanning on multiple paragraphs in
+  edit mode for comments portlet.
+  [olimpiurob #18139]
 * Feature: Match comment text in edit mode; Added slide to right functionality
   to inline comments portlet
   [olimpiurob #18193]
