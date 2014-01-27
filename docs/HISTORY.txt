@@ -6,6 +6,9 @@ Changelog
 
 1.0 - (2014-01-21)
 ------------------
+* Feature: Match comment text in edit mode; Added slide to right functionality
+  to inline comments portlet
+  [olimpiurob #18193]
 * Feature: Log inline comments closing and re-opening using auto-replies
   [voineali refs #18080]
 * Change: Changed permission settings for annotator

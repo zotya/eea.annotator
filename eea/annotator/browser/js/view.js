@@ -252,6 +252,83 @@ EEA.AnnotatorPortlet.prototype = {
       evt.preventDefault();
       self.fullscreen();
     });
+
+    jQuery('.annotator-portlet').on('commentCollapsed', '.erratum-comment', function(evt, data) {
+      if (typeof tinymce !== 'undefined' ) {
+        var quoted = data.annotation.quote;
+        var ed = tinymce.activeEditor;
+        var ed_win = ed.getWin();
+
+        // scroll to tinymce
+        jQuery('html, body').animate({
+          scrollTop: jQuery('#' + ed.editorId).parent().offset().top
+        });
+
+        ed.focus();
+        ed_win.find(quoted);
+      }
+    });
+
+    jQuery('.annotator-portlet').on('commentUnCollapsed', '.erratum-comment', function(evt, data) {
+      if (typeof tinymce !== 'undefined' ) {
+        var ed = tinymce.activeEditor;
+
+        // Move caret to beginning of text
+        ed.execCommand('SelectAll');
+        ed.selection.collapse(true);
+      }
+    });
+
+    jQuery('.annotator-portlet').on('portletEnterFS', function(evt) {
+      var self = jQuery(this);
+      var portletHeader = self.find('.portletHeader');
+      var slider_width = self.outerWidth(true);
+      var vert_mid = jQuery(window).scrollTop() + Math.floor(jQuery(window).height() / 2);
+
+      self.addClass('unslided');
+
+      var slide_div = jQuery('<div />', {
+        'class': 'annotator-slide-button slide-right',
+        click: function(evt){
+          var parent = self;
+          var btn = jQuery(this);
+          var icon = btn.find('.eea-icon');
+          evt.preventDefault();
+
+          if (parent.hasClass('unslided')) {
+            parent.animate({'margin-right': '-='+slider_width}, function() {
+              parent.css('overflow', 'visible');
+              parent.removeClass('unslided').addClass('slided');
+              btn.removeClass('slide-right').addClass('slide-left');
+              btn.css('right', slider_width);
+              icon.removeClass('eea-icon-caret-right').addClass('eea-icon-caret-left');
+            });
+          } else {
+            parent.animate({'margin-right': '+='+slider_width}, function() {
+              parent.css('overflow', '');
+              parent.removeClass('slided').addClass('unslided');
+              btn.removeClass('slide-left').addClass('slide-right');
+              icon.removeClass('eea-icon-caret-left').addClass('eea-icon-caret-right');
+            });
+          }
+        }
+      });
+
+      var slide_btn = jQuery('<span />', {
+        'class': 'eea-icon eea-icon-caret-right eea-icon-2x',
+        'title': 'Slide the portlet to the right'
+      });
+
+      slide_btn.appendTo(slide_div);
+      slide_div.width((slider_width - self.width()) / 2);
+      self.append(slide_div);
+    });
+
+    jQuery('.annotator-portlet').on('portletExitFS', function(evt) {
+      var self = jQuery(this);
+      var slide_btn = self.find('.annotator-slide-button');
+      slide_btn.remove();
+    });
   },
 
   fullscreen: function(annotation, element){
@@ -265,6 +342,7 @@ EEA.AnnotatorPortlet.prototype = {
         self.context.removeClass('fullscreen');
         self.context.width('auto');
         self.context.slideDown('fast');
+        self.context.trigger('portletExitFS');
       });
     }else{
       self.context.slideUp(function(){
@@ -280,6 +358,7 @@ EEA.AnnotatorPortlet.prototype = {
             scrollTop: scrollTop
           });
         }
+        self.context.trigger('portletEnterFS');
       });
     }
   },
