@@ -48,6 +48,19 @@ class ControlPanelAdapter(SchemaAdapterBase):
         """
         self.settings.portalTypes = value
 
+    @property
+    def autoSync(self):
+        """ Auto refresh inline comments interval
+        """
+        name = u"autoSync"
+        return getattr(self.settings, name, ISettings[name].default)
+
+    @autoSync.setter
+    def autoSync(self, value):
+        """ Set Auto refresh inline comments interval
+        """
+        self.settings.autoSync = value
+
     def disabled(self, obj):
         """ Check if inline comments are disabled for obj
         """

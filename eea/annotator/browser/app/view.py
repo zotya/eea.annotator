@@ -2,6 +2,8 @@
 """
 import json
 import logging
+import hashlib
+from zope.event import notify
 from zope.interface import implements, implementer
 from zope.component import queryMultiAdapter, queryAdapter
 from zope.publisher.interfaces import IPublishTraverse
@@ -11,6 +13,7 @@ from Products.CMFCore.utils import getToolByName
 from eea.annotator.browser.interfaces import IAnnotatorAPI
 from eea.annotator.browser.interfaces import IAnnotatorAnnotations
 from eea.annotator.interfaces import IAnnotatorStorage
+from eea.annotator.cache import ramcache, cacheJsonKey, InvalidateCacheEvent
 logger = logging.getLogger('eea.annotator')
 
 
@@ -78,6 +81,7 @@ class Annotations(BrowserView):
         """
         return queryAdapter(self.parent, IAnnotatorStorage)
 
+    @ramcache(cacheJsonKey, dependencies=['eea.annotator'])
     def index(self, **kwargs):
         """ Index
         """
@@ -137,6 +141,16 @@ class Annotations(BrowserView):
 class AnnotationsEdit(Annotations):
     """ Annotator Storage Editor
     """
+
+    @property
+    def cacheKey(self):
+        """ Compute cache key
+        """
+        key = u"eea.annotator.browser.app.view.index:"
+        key += cacheJsonKey(None, self)
+        key = key.replace('_edit', '_view')
+        return hashlib.md5(key).hexdigest()
+
     def create(self, **kwargs):
         """ Create
         """
@@ -147,6 +161,7 @@ class AnnotationsEdit(Annotations):
             logger.exception(err)
             return self.jsonify(err, 400)
         else:
+            notify(InvalidateCacheEvent(key=self.cacheKey, raw=True))
             return self.read(item)
 
     def update(self, **kwargs):
@@ -159,6 +174,7 @@ class AnnotationsEdit(Annotations):
             logger.exception(err)
             return self.jsonify(err, 400)
         else:
+            notify(InvalidateCacheEvent(key=self.cacheKey, raw=True))
             return self.read(item)
 
     def delete(self, **kwargs):
@@ -171,7 +187,8 @@ class AnnotationsEdit(Annotations):
             logger.exception(err)
             return self.jsonify(err, 400)
         else:
-            return self.jsonify(item, 200)
+            notify(InvalidateCacheEvent(key=self.cacheKey, raw=True))
+            return self.read(item)
 
 
 class AnnotationsSearch(BrowserView):

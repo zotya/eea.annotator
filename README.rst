@@ -55,6 +55,8 @@ Getting started
    an existing one;
 3. In view mode select text you want to comment on and add an inline comment;
 4. Within edit form > Settings Tab you can contextually disable inline comments.
+5. You can also add an "Inline comments" portlet in order to overview
+   all inline comments on this page.
 
 Dexterity
 ---------
