@@ -73,9 +73,11 @@ if(!EEA.eea_accordion){
 EEA.AnnotatorWorker = {
   running: null,
   interval: 0,
+  latest: null,
+  tries: 3,
   callback: null,
 
-  start: function(interval, url, callback){
+  start: function(interval, url, current, callback){
     var self = this;
 
     // Avoid multiple instances
@@ -99,6 +101,7 @@ EEA.AnnotatorWorker = {
 
     self.interval = interval;
     self.running = true;
+    self.filter(current);
     self.run();
   },
 
@@ -113,16 +116,62 @@ EEA.AnnotatorWorker = {
 
   run: function(){
     var self = this;
-    self.running = setTimeout(
-      function(){
-        self.callback("Auto-sync in progress: " + self.url);
-//        jQuery.getJSON(self.url, {}, function(data){
-//          self.callback(data);
-//          return self.run();
-//        });
-      },
-      self.interval
-    );
+    self.running = setTimeout( function(){
+      jQuery.ajax({
+        dataType: "json",
+        url: self.url,
+        data: {},
+        success: function(data, textStatus, jqXHR){
+          self.tries = 3;
+          data = self.filter(data);
+          self.callback(data);
+          return self.run();
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+          self.tries -= 1;
+          // Abort after 3 tries
+          self.log('ERROR: ' + errorThrown + ' ' + textStatus + '. Remaining tries: ' + self.tries);
+          if(self.tries > 0){
+            return self.run();
+          }
+        }
+      });
+    }, self.interval );
+  },
+
+  filter: function(data){
+    var iso, now, self = this;
+
+    // Init
+    if(!self.latest){
+      jQuery.each(data, function(idx, item){
+        now = item.updated.endsWith('Z') ? item.updated : item.updated + 'Z';
+        if(!self.latest){
+          self.latest = now;
+        }else if(now > self.latest){
+          self.latest = now;
+        }
+      });
+      return data;
+    }
+
+    // Filter only items that where changed meanwhile
+    var latest = self.latest;
+    var newData = jQuery.map(data, function(item, idx){
+      now = item.updated.endsWith('Z') ? item.updated : item.updated + 'Z';
+      if(now > self.latest){
+        if(now > latest){
+          latest = now;
+        }
+        return item;
+      }else{
+        return null;
+      }
+    });
+
+    // Update the new latest
+    self.latest = latest;
+    return newData;
   },
 
   log: function(msg){
@@ -258,14 +307,19 @@ EEA.Annotator.prototype = {
     self.target.annotator('addPlugin', 'Errata');
 
     // Auto-sync inline comments in background
-    self.worker.start(self.settings.autoSync, self.settings.worker, self.sync);
+    self.target.off('.Annotator');
+    self.target.on('afterAnnotationsLoaded.Annotator', function(evt, data){
+      self.worker.start(self.settings.autoSync, self.settings.worker, data, function(data){
+        if(data.length){
+          return self.sync(data);
+        }
+      });
+    });
   },
 
   sync: function(data){
     var self = this;
-    if(window.console){
-      console.log(data);
-    }
+    self.target.annotator('refreshAnnotations', data);
   }
 };
 
@@ -313,9 +367,7 @@ EEA.AnnotatorPortlet.prototype = {
     });
 
     errata.on('annotationsErrataLoaded.AnnotatorPortlet', function(evt, data){
-      if(window.EEA && window.EEA.eea_accordion){
-        EEA.eea_accordion(errata);
-      }
+      EEA.eea_accordion(errata);
     });
 
     // Fullscreen button
@@ -357,7 +409,7 @@ EEA.AnnotatorPortlet.prototype = {
             if (idx === 0) {
               start_range = current.cloneRange();
             }
-            
+
             // Add to the start_range the current range container and endOffset
             start_range.setEnd(current.startContainer, current.endOffset);
             selection.setRng(start_range);
