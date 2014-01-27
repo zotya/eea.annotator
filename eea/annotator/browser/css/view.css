@@ -74,6 +74,24 @@ dl.portlet dd.annotator-portlet-body {
   cursor: pointer;
 }
 
+.annotator-portlet .annotator-slide-button {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  display: table;
+  height: 100%;
+}
+
+.annotator-portlet .slide-right {
+  left: 0;
+  cursor: pointer;
+}
+
+.annotator-slide-button .eea-icon {
+  display: table-cell;
+  vertical-align: middle;
+}
+
 .annotator-portlet.fullscreen::-webkit-scrollbar {
   width: 7px;
 }
