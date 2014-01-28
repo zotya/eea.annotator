@@ -3,6 +3,8 @@ Changelog
 
 1.1-dev - (unreleased)
 ----------------------
+* Bug fix: Added missing dummy 'collapsed' effect
+  [olimpiurob #18098]
 * Feature: Make the annotator portlet visible only on view and edit views
   [olimpiurob #18139]
 * Bug fix: Make the formPanel containing the tinymce visible when searching for
