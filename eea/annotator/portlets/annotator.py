@@ -75,7 +75,7 @@ class Renderer(base.Renderer):
 
         plone = getMultiAdapter((self.context, self.request),
                                 name=u'plone_context_state')
-        is_edit_view = 'edit' in self.context.REQUEST.URL0.split('/')[-1]
+        is_edit_view = 'edit' in self.request.URL0.split('/')[-1]
         if not (plone.is_view_template() or is_edit_view):
             return False
 
