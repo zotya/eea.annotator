@@ -3,10 +3,7 @@
   tal:omit-tag=""
   i18n:domain="eea">
 
-<dl class="portlet annotator-portlet"
-  tal:define="isViewTemplate context/@@plone_context_state/is_view_template;
-              isEditTemplate python: 'edit' in context.REQUEST.URL0.split('/')[-1];"
-  tal:condition="python: isViewTemplate or isEditTemplate">
+<dl class="portlet annotator-portlet">
 
   <dt class="portletHeader" tal:condition="view/data/label|nothing">
     <a tal:content="view/data/label"
