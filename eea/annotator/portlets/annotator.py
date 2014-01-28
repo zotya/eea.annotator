@@ -3,6 +3,7 @@
 from zope import schema
 from zope.formlib import form
 from zope.interface import implements
+from zope.component import getMultiAdapter
 from zope.component import queryAdapter
 from zope.security import checkPermission
 from zope.component.hooks import getSite
@@ -66,10 +67,16 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        """By default, portlets are available
+        """By default, portlets are available on view view and edit view
         """
 
         if not checkPermission('eea.annotator.view', self.context):
+            return False
+
+        plone = getMultiAdapter((self.context, self.request),
+                                name=u'plone_context_state')
+        is_edit_view = 'edit' in self.request.URL0.split('/')[-1]
+        if not (plone.is_view_template() or is_edit_view):
             return False
 
         storage = queryAdapter(self.context, IAnnotatorStorage)

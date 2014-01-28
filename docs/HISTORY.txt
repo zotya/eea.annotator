@@ -3,6 +3,11 @@ Changelog
 
 1.1-dev - (unreleased)
 ----------------------
+* Feature: Make the annotator portlet visible only on view and edit views
+  [olimpiurob #18139]
+* Bug fix: Make the formPanel containing the tinymce visible when searching for
+  a comment text.
+  [olimpiurob #18139]
 * Bug fix: Fixed matching on comment texts spanning on multiple paragraphs in
   edit mode for comments portlet.
   [olimpiurob #18139]

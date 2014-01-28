@@ -339,6 +339,10 @@ EEA.AnnotatorPortlet.prototype = {
         var ed = tinymce.activeEditor;
         var ed_win = ed.getWin();
 
+        var container_panel = $('#' + ed.editorId).closest('.formPanel')
+        var tab_id = container_panel.find('legend').attr('id');
+        $('a#' + tab_id).click();
+
         // scroll to tinymce
         jQuery('html, body').animate({
           scrollTop: jQuery('#' + ed.editorId).parent().offset().top
