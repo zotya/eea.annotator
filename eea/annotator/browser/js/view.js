@@ -10,6 +10,11 @@ if(window.EEA === undefined){
 }
 
 if(!EEA.eea_accordion){
+  $.tools.tabs.addEffect("collapsed", function(i, done) {
+      // #17555; passed an empty effect for the collapsed accordion
+      // using instead use a simple slide for the accordion headers
+
+  });
   EEA.eea_accordion = function ($folder_panels) {
     if (!$folder_panels) {
       $folder_panels = $('.eea-accordion-panels');
@@ -391,7 +396,7 @@ EEA.AnnotatorPortlet.prototype = {
         var ed = tinymce.activeEditor;
         var ed_win = ed.getWin();
 
-        var container_panel = $('#' + ed.editorId).closest('.formPanel')
+        var container_panel = $('#' + ed.editorId).closest('.formPanel');
         var tab_id = container_panel.find('legend').attr('id');
         $('a#' + tab_id).click();
 
