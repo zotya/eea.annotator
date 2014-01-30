@@ -321,6 +321,14 @@ EEA.Annotator.prototype = {
         }
       });
     });
+
+    self.target.on('annotationErrataUpdated.Annotator', function(evt, data){
+      if(!data.length){
+        data = [data];
+      }
+      self.worker.filter(data);
+    });
+
   },
 
   sync: function(data){
