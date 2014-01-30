@@ -10,7 +10,7 @@
     profile="eea.annotator:default">
 
     <genericsetup:upgradeDepends
-      title="Add permission check for jquery.annotator"
+      title="Make jquery.annotator available for authenticated only"
       import_profile="eea.jquery:20-annotator"
       />
 
