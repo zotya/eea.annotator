@@ -181,9 +181,12 @@ class Storage(object):
         if isinstance(comment, unicode):
             comment = json.loads(comment)
 
+        oid = comment.get('id')
+        if not oid or oid not in self.comments:
+            return
+
         # History enabled
         if comment.get('deleted', None) is not None:
             return self.edit(comment, delete=True)
 
-        oid = comment.get('id')
         return self._comments.pop(oid)

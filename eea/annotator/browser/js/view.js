@@ -314,6 +314,7 @@ EEA.Annotator.prototype = {
     // Auto-sync inline comments in background
     self.target.off('.Annotator');
     self.target.on('afterAnnotationsLoaded.Annotator', function(evt, data){
+      data = data ? data : [];
       self.worker.start(self.settings.autoSync, self.settings.worker, data, function(data){
         if(data.length){
           return self.sync(data);

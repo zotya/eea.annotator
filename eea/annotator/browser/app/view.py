@@ -188,7 +188,7 @@ class AnnotationsEdit(Annotations):
             return self.jsonify(err, 400)
         else:
             notify(InvalidateCacheEvent(key=self.cacheKey, raw=True))
-            return self.read(item)
+            return self.read(item) if item else self.jsonify(None, 204)
 
 
 class AnnotationsSearch(BrowserView):
