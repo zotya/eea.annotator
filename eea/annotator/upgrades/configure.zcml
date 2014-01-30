@@ -2,6 +2,19 @@
   xmlns="http://namespaces.zope.org/zope"
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   i18n_domain="eea">
+  
+  <!-- 1.1 => 1.2 -->
+  <genericsetup:upgradeSteps
+    source="1.1"
+    destination="1.2"
+    profile="eea.annotator:default">
+
+    <genericsetup:upgradeDepends
+      title="Make jquery.annotator available for authenticated only"
+      import_profile="eea.jquery:20-annotator"
+      />
+
+  </genericsetup:upgradeSteps>
 
   <!-- 1.0 => 1.1 -->
   <genericsetup:upgradeSteps

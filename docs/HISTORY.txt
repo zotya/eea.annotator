@@ -3,6 +3,9 @@ Changelog
 
 1.1-dev - (unreleased)
 ----------------------
+* Upgrade step: Import the eea.jquery annotator profile with the updated
+  authenticated restriction
+  [olimpiurob #17233]
 * Bug fix: Added missing dummy 'collapsed' effect
   [olimpiurob #18098]
 * Feature: Make the annotator portlet visible only on view and edit views
