@@ -10,6 +10,11 @@ if(window.EEA === undefined){
 }
 
 if(!EEA.eea_accordion){
+  $.tools.tabs.addEffect("collapsed", function(i, done) {
+      // #17555; passed an empty effect for the collapsed accordion
+      // using instead use a simple slide for the accordion headers
+
+  });
   EEA.eea_accordion = function ($folder_panels) {
     if (!$folder_panels) {
       $folder_panels = $('.eea-accordion-panels');
