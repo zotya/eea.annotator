@@ -265,7 +265,10 @@ EEA.Annotator.prototype = {
     self.target.annotator('addField', {
       load: function(field, annotation){
         var iso_date = annotation.created;
-        if (iso_date.substr(iso_date.length-1) !== 'Z') {
+        if(!iso_date){
+          return;
+        }
+        if (iso_date.endsWith('Z')) {
           iso_date += 'Z';
         }
         var published = new Date(iso_date);
@@ -564,7 +567,7 @@ jQuery(document).ready(function(){
   var items = jQuery(".eea-annotator");
   if(items.length){
     var baseurl = jQuery('base').attr('href');
-    if(baseurl.substring(baseurl.length - 1) === "/"){
+    if(baseurl.endsWith("/")){
       baseurl = baseurl.substring(0, baseurl.length - 1);
     }
     var settings = {
