@@ -1,6 +1,7 @@
 """ Custom viewlets
 """
 from zope.component.hooks import getSite
+from zope.component import getMultiAdapter
 from zope.component import queryAdapter
 from zope.security import checkPermission
 from plone.app.layout.viewlets import common
@@ -63,6 +64,12 @@ class Annotator(common.ViewletBase):
         """ Available
         """
         if not checkPermission('eea.annotator.view', self.context):
+            return False
+
+        plone = getMultiAdapter((self.context, self.request),
+                                name=u'plone_context_state')
+        is_edit_view = 'edit' in self.request.URL0.split('/')[-1]
+        if not (plone.is_view_template() or is_edit_view):
             return False
 
         storage = queryAdapter(self.context, IAnnotatorStorage)
