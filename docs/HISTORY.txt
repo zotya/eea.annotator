@@ -3,6 +3,8 @@ Changelog
 
 1.2-dev - (unreleased)
 ----------------------
+* Change: Prettify the dates displayed in annotations
+  [olimpiurob refs #18288]
 
 1.1 - (2014-02-03)
 ------------------

@@ -220,11 +220,11 @@ EEA.Annotator.prototype = {
           iso_date += 'Z';
         }
         var published = new Date(iso_date);
-        var dateString = Util.dateString(published);
+        var dateString = Util.easyDate(published);
         $(field)
           .html(dateString)
           .addClass('annotator-date')
-          .attr('title', published.toDateString());
+          .attr('title', Util.prettyDateString(published));
       }
     });
     // Permissions plugin
