@@ -224,7 +224,7 @@ EEA.Annotator.prototype = {
         $(field)
           .html(dateString)
           .addClass('annotator-date')
-          .attr('title', published.toDateString());
+          .attr('title', Util.prettyDateString(published));
       }
     });
     // Permissions plugin
