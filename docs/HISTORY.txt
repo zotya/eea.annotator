@@ -1,10 +1,13 @@
 Changelog
 =========
 
-1.1-dev - (unreleased)
+1.2-dev - (unreleased)
 ----------------------
 * Change: Prettify the dates displayed in annotations
   [olimpiurob refs #18288]
+
+1.1 - (2014-02-03)
+------------------
 * Upgrade step: Restrict eea.annotator to view view and edit view
   [olimpiurob refs #17702]
 * Upgrade step: Import the eea.jquery annotator profile with the updated
