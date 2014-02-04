@@ -3,8 +3,7 @@ Changelog
 
 1.2-dev - (unreleased)
 ----------------------
-* WIP
-  Feature: update inline comments via background AJAX calls
+* Feature: update inline comments via background AJAX calls
   [voineali refs #18098]
 * Change: Prettify the dates displayed in annotations
   [olimpiurob refs #18288]
