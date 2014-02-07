@@ -3,6 +3,13 @@ Changelog
 
 1.2-dev - (unreleased)
 ----------------------
+* Upgrade step (optional): Within Site Setup > EEA Annotator Settings set
+  "Auto-refresh inline comments" to a value higher than 0 if you want inline
+  comments to automatically synced in background.
+  [voineali refs #18098]
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Annotator
+  [olimpiurob refs #18288]
 * Feature: update inline comments via background AJAX calls
   [voineali refs #18098]
 * Change: Prettify the dates displayed in annotations
@@ -28,8 +35,7 @@ Changelog
 * Feature: Match comment text in edit mode; Added slide to right functionality
   to inline comments portlet
   [olimpiurob #18193]
-* WIP
-  Feature: update inline comments via background AJAX calls
+* Feature: update inline comments via background AJAX calls
   [voineali refs #18098]
 
 1.0 - (2014-01-21)
