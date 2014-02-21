@@ -10,6 +10,9 @@ EEA Annotator is the Plone integration of http://okfnlabs.org/annotator/ which
 allows your editors to easily collaborate on a Plone document by adding
 annotations (inline comments) on it.
 
+.. image:: http://eea.github.io/_images/eea.progressbar.cover.png
+   :target: http://www.youtube.com/watch?v=UExygLRqjkc&list=PLVPSQz7ahsBxXe_sM7Cx2BnOoxkt3pnbw&feature=share
+
 Contents
 ========
 
