@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.0-dev - (unreleased)
-----------------------
+2.0 - (2014-02-21)
+------------------
 * Change: Link how-to youtube video and release on pypi and plone.org
   [avoinea]
 
