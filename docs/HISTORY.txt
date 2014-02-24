@@ -3,6 +3,10 @@ Changelog
 
 2.1-dev - (unreleased)
 ----------------------
+* WIP:
+  Feature: Added moderation form for inline comments
+  [voineali refs #18557]
+
 
 2.0 - (2014-02-21)
 ------------------

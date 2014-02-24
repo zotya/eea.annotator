@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="eea">
+
+<body>
+<metal:main fill-slot="main">
+<tal:main-macro metal:define-macro="main"
+  tal:define="items python:[1]">
+
+  <h1 class="documentFirstHeading" i18n:translate="">
+    Moderate inline comments
+  </h1>
+
+  <form tal:condition="not:items">
+    <fieldset id="fieldset-moderate-comments" class="formPanel">
+        <p id="no-comments-message" i18n:translate="">
+            No comments to moderate.
+        </p>
+    </fieldset>
+  </form>
+
+  <form method="post"
+    action="#"
+    tal:attributes="action string:${context/absolute_url}/moderate-inline-comments"
+    tal:condition="items">
+
+    <table id="review-comments" class="listing">
+      <thead>
+        <tr>
+          <th colspan="5" class="nosort">
+            <input class="context" type="submit" name="form.button.save" value="Save" i18n:attributes="value" />
+            <input class="context" type="submit" name="form.button.delete" value="Delete" i18n:attributes="value" />
+          </th>
+        </tr>
+        <tr>
+          <th class="nosort"><input name="check_all" id="check_all" type="checkbox" value="0" /></th>
+          <th i18n:translate="">Commenter</th>
+          <th i18n:translate="">Date</th>
+          <th i18n:translate="">Comment</th>
+          <th i18n:translate="">Quoted text</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tal:items tal:repeat="item items">
+          <tr tal:define="even repeat/item/even"
+              tal:attributes="class python: even and 'odd' or 'even'">
+            <td><input name="names:list" type="checkbox" class="noborder" value="item/id|string:" /></td>
+            <td><span tal:content="item/user/id|string:" tal:attributes="title item/user/name|string:">User name</span></td>
+            <td><span tal:content="item/created|string:">Date</span></td>
+            <td><span tal:content="item/text|string:">Comment text</span></td>
+            <td><span tal:content="item/quote|string:">Quote</span></td>
+          </tr>
+        </tal:items>
+      </tbody>
+      <tfoot>
+        <th colspan="5" class="nosort">
+          <input class="context" type="submit" name="form.button.save" value="Save" i18n:attributes="value" />
+          <input class="context" type="submit" name="form.button.delete" value="Delete" i18n:attributes="value" />
+        </th>
+      </tfoot>
+    </table>
+  </form>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#check_all').change(function(){
+      var checkboxes = $(this).closest('form').find(':checkbox');
+      if($(this).is(':checked')) {
+        checkboxes.attr('checked', 'checked');
+      }else{
+        checkboxes.removeAttr('checked');
+      }
+    })
+  });
+</script>
+
+</tal:main-macro>
+</metal:main>
+</body>
+</html>

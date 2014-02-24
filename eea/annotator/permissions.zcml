@@ -14,4 +14,10 @@
     description="Edit inline comments"
     />
 
+  <permission
+    id="eea.annotator.manage"
+    title="eea.annotator: Manage"
+    description="Manage inline comments"
+    />
+
 </configure>
