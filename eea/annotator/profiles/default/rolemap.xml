@@ -13,5 +13,8 @@
       <role name="Owner"/>
       <role name="Editor"/>
     </permission>
+    <permission name="eea.annotator: Manage" acquire="True">
+      <role name="Manager"/>
+    </permission>
   </permissions>
 </rolemap>

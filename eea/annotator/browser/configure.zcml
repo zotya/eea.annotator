@@ -8,6 +8,15 @@
   <adapter factory=".app.traverse.AnnotatorAPITraverse" />
 
   <browser:page
+    name="moderate-inline-comments"
+    for="eea.annotator.interfaces.IAnnotatorAware"
+    layer="eea.annotator.interfaces.ILayer"
+    class=".app.moderate.Moderate"
+    template="zpt/moderate.pt"
+    permission="eea.annotator.manage"
+    />
+
+  <browser:page
     name="annotator.api"
     for="eea.annotator.interfaces.IAnnotatorAware"
     layer="eea.annotator.interfaces.ILayer"
