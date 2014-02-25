@@ -66,6 +66,14 @@ class Renderer(base.Renderer):
     render = ViewPageTemplateFile('annotator.pt')
 
     @property
+    def moderate(self):
+        """ Can moderate inline comments
+        """
+        if not checkPermission('eea.annotator.manage', self.context):
+            return False
+        return True
+
+    @property
     def available(self):
         """By default, portlets are available on view view and edit view
         """

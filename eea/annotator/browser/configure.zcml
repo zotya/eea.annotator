@@ -11,8 +11,17 @@
     name="moderate-inline-comments"
     for="eea.annotator.interfaces.IAnnotatorAware"
     layer="eea.annotator.interfaces.ILayer"
-    class=".app.moderate.Moderate"
-    template="zpt/moderate.pt"
+    class=".app.moderate.Comments"
+    template="zpt/moderate-comments.pt"
+    permission="eea.annotator.manage"
+    />
+
+  <browser:page
+    name="moderate-inline-comment"
+    for="eea.annotator.interfaces.IAnnotatorAware"
+    layer="eea.annotator.interfaces.ILayer"
+    class=".app.moderate.Comment"
+    template="zpt/moderate-comment.pt"
     permission="eea.annotator.manage"
     />
 
@@ -42,15 +51,6 @@
     name="annotations_search"
     for="eea.annotator.browser.interfaces.IAnnotatorAPI"
     class=".app.view.AnnotationsSearch"
-    permission="eea.annotator.view"
-    />
-
-  <browser:page
-    name="annotator.comments"
-    for="eea.annotator.interfaces.IAnnotatorAware"
-    layer="eea.annotator.interfaces.ILayer"
-    class=".app.comments.InlineComments"
-    template="zpt/comments.pt"
     permission="eea.annotator.view"
     />
 

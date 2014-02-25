@@ -29,6 +29,7 @@ Main features
    for certain workflow states (via content rules).
 4. Dexterity aware. It works also with dexterity content-types.
 5. Contextually disable inline comments.
+6. Moderate inline comments.
 
 Install
 =======
@@ -60,6 +61,16 @@ Getting started
 4. Within edit form > Settings Tab you can contextually disable inline comments.
 5. You can also add an "Inline comments" portlet in order to overview
    all inline comments on this page.
+
+Moderate inline comments
+========================
+.. warning ::
+
+   You'll have to be logged-in ad Manager or have the
+   **eea.annotator: Manage** permission
+
+1. Click on the title of the **Inline comments portlet** if any or just access
+   **@@moderate-inline-comments**
 
 Dexterity
 ---------
