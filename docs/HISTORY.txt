@@ -3,8 +3,8 @@ Changelog
 
 2.1-dev - (unreleased)
 ----------------------
-* WIP:
-  Feature: Added moderation form for inline comments
+  Feature: Added possibility to moderate inline comments via
+  @@moderate-inline-comments
   [voineali refs #18557]
 
 

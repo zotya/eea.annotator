@@ -395,7 +395,7 @@ EEA.AnnotatorPortlet.prototype = {
       .addClass('eea-icon-expand')
       .prependTo(self.header);
 
-    self.header.find('.annotator-fullscreen-button,a').click(function(evt){
+    self.header.find('.annotator-fullscreen-button').click(function(evt){
       evt.preventDefault();
       self.fullscreen();
     });

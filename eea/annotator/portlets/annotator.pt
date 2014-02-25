@@ -7,7 +7,8 @@
 
   <dt class="portletHeader" tal:condition="view/data/label|nothing">
     <a tal:content="view/data/label"
-      tal:attributes="href string:${view/context/absolute_url}"/>
+       tal:omit-tag="not:view/moderate"
+      tal:attributes="href string:${view/context/absolute_url}/moderate-inline-comments"/>
   </dt>
 
   <dd class="portletItem annotator-portlet-body">
