@@ -8,7 +8,7 @@ from zope.component import queryAdapter
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
-from eea.annotator.cache import ramcache, cacheJsonKey, InvalidateCacheEvent
+from eea.annotator.cache import cacheJsonKey, InvalidateCacheEvent
 from eea.annotator.interfaces import  IAnnotatorStorage
 from eea.annotator.config import EEAMessageFactory as _
 
