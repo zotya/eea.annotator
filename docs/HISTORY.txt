@@ -3,7 +3,10 @@ Changelog
 
 2.1-dev - (unreleased)
 ----------------------
-  Feature: Added possibility to moderate inline comments via
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Annotator
+  [voineali refs #18557]
+* Feature: Added possibility to moderate inline comments via
   @@moderate-inline-comments
   [voineali refs #18557]
 
