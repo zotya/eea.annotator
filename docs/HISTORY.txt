@@ -1,15 +1,14 @@
 Changelog
 =========
 
-2.1-dev - (unreleased)
-----------------------
+2.1 - (2014-02-27)
+------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for EEA Annotator
   [voineali refs #18557]
 * Feature: Added possibility to moderate inline comments via
   @@moderate-inline-comments
   [voineali refs #18557]
-
 
 2.0 - (2014-02-21)
 ------------------
