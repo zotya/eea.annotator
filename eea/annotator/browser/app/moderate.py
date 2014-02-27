@@ -100,7 +100,7 @@ class Comments(CommentView):
         cids = self.request.get('comments', [])
         for cid in cids:
             comment = self.storage.get(cid)
-            comment.pop('deleted')
+            comment.pop('deleted', None)
             if not comment:
                 continue
             self.storage.delete(comment)

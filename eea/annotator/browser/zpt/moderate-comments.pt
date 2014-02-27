@@ -12,6 +12,10 @@
   comments python:view.comments;
   length python:comments.next();">
 
+  <a tal:attributes="href string:${context/absolute_url}" class="link-parent" i18n:translate="">
+    Return
+  </a>
+
   <h1 class="documentFirstHeading" i18n:translate="">
     Moderate inline comments
   </h1>
