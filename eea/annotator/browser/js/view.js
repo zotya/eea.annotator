@@ -403,39 +403,53 @@ EEA.AnnotatorPortlet.prototype = {
     jQuery('.annotator-portlet').on('commentCollapsed', '.erratum-comment', function(evt, data) {
       if (typeof tinymce !== 'undefined' ) {
         var quoted = data.annotation.quote;
+
         // Split newlines
         quoted = quoted.split('\n');
-        var ed = tinymce.activeEditor;
-        var ed_win = ed.getWin();
+        var editors = tinymce.editors;
 
-        var container_panel = $('#' + ed.editorId).closest('.formPanel');
-        var tab_id = container_panel.find('legend').attr('id');
-        $('a#' + tab_id).click();
+        jQuery.each(editors, function() {
+          var cur_ed = this;
 
-        // scroll to tinymce
-        jQuery('html, body').animate({
-          scrollTop: jQuery('#' + ed.editorId).parent().offset().top
-        });
+          // Clear any existing selection and move cursor to begining of tinymce content
+          cur_ed.selection.select(cur_ed.getBody(), true);
+          cur_ed.selection.collapse(true);
 
-        ed.focus();
+          var start_range;
+          var selection = cur_ed.selection;
 
-        var start_range;
-        var selection = ed.selection;
+          for (var idx = 0, len = quoted.length; idx < len; idx++) {
+            if (quoted[idx].length > 0) {
 
-        for (var idx = 0, len = quoted.length; idx < len; idx++) {
-          if (quoted[idx].length > 0) {
-            ed_win.find(quoted[idx]);
-            var current = selection.getRng();
-            // Get the range for the first element - start_range
-            if (idx === 0) {
-              start_range = current.cloneRange();
+              var ed_win = cur_ed.getWin();
+              var found = ed_win.find(quoted[idx]);
+
+              if (found === true) {
+                var current = selection.getRng();
+
+                var container_panel = $('#' + cur_ed.editorId).closest('.formPanel');
+                var tab_id = container_panel.find('legend').attr('id');
+                jQuery('a#' + tab_id).click();
+
+                // scroll to tinymce
+                jQuery('html, body').animate({
+                  scrollTop: jQuery('#' + cur_ed.editorId).parent().offset().top
+                });
+
+                cur_ed.focus();
+
+                // Get the range for the first element - start_range
+                if (idx === 0) {
+                  start_range = current.cloneRange();
+                }
+
+                // Add to the start_range the current range container and endOffset
+                start_range.setEnd(current.startContainer, current.endOffset);
+                selection.setRng(start_range);
+              }
             }
-
-            // Add to the start_range the current range container and endOffset
-            start_range.setEnd(current.startContainer, current.endOffset);
-            selection.setRng(start_range);
           }
-        }
+        });
       }
     });
 

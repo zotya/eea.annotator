@@ -3,6 +3,8 @@ Changelog
 
 2.2-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed word matching when multiple tinymce instances are present
+  [olimpiurob refs #18945]
 
 2.1 - (2014-02-27)
 ------------------
