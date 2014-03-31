@@ -4,6 +4,7 @@ from zope.component import queryUtility
 from zope.interface import implements
 from zope.formlib import form
 from plone.app.controlpanel.form import ControlPanelForm
+from plone.app.controlpanel.widgets import MultiCheckBoxVocabularyWidget
 from plone.registry.interfaces import IRegistry
 from Products.CMFDefault.formlib.schema import SchemaAdapterBase
 from eea.annotator.interfaces import ISettings
@@ -13,6 +14,8 @@ class ControlPanel(ControlPanelForm):
     """ API
     """
     form_fields = form.FormFields(ISettings)
+    form_fields['portalTypes'].custom_widget = MultiCheckBoxVocabularyWidget
+
     label = _(u"EEA Annotator Settings")
     description = _(u"EEA Annotator settings")
     form_name = _(u"EEA Annotator settings")
