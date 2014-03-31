@@ -2,13 +2,22 @@
 """
 import json
 import hashlib
+from zope.event import notify
 from datetime import datetime
+from persistent.dict import PersistentDict
 from zope.interface import implements
 from zope.annotation.interfaces import IAnnotations
-from eea.annotator.interfaces import IAnnotatorStorage
 from Products.CMFCore.utils import getToolByName
+from eea.annotator.interfaces import IAnnotatorStorage
+
+from eea.annotator.events.comment import InlineCommentAdded
+from eea.annotator.events.comment import InlineCommentClosed
+from eea.annotator.events.comment import InlineCommentOpened
+from eea.annotator.events.comment import InlineCommentDeleted
+from eea.annotator.events.comment import InlineCommentModified
+from eea.annotator.events.comment import InlineCommentReply
+
 from eea.annotator.config import PROJECTNAME
-from persistent.dict import PersistentDict
 from eea.annotator.config import EEAMessageFactory as _
 
 class Storage(object):
@@ -46,6 +55,21 @@ class Storage(object):
         return comments
 
     @property
+    def _subscribers(self):
+        """ Subscribe to inline comments notifications
+        """
+        subscribers = self._storage.get('subscribers')
+        if not subscribers:
+            subscribers = self._storage['subscribers'] = PersistentDict()
+
+        # Auto subscribe object creators to all inline comments notifications
+        listCreators = getattr(self.context, 'listCreators', lambda: [])
+        for creator in listCreators():
+            subscribers.setdefault(creator, True)
+
+        return subscribers
+
+    @property
     def user(self):
         """ Current user
         """
@@ -71,6 +95,12 @@ class Storage(object):
         """ Read-only comments
         """
         return self.storage.get('comments', {})
+
+    @property
+    def subscribers(self):
+        """ Read-only subscribers
+        """
+        return self.storage.get('subscribers', {})
 
     #
     # Public interface
@@ -122,6 +152,13 @@ class Storage(object):
         comment['user'] = self.user
 
         self._comments[oid] = PersistentDict(comment)
+
+        # Auto-subscribe inline comment creator
+        self.subscribe(override=False)
+
+        # Notify
+        notify(InlineCommentAdded(self.context, comment=comment))
+
         return comment
 
     def replies(self, comment):
@@ -137,11 +174,27 @@ class Storage(object):
             if reply.pop('remove', False):
                 text = reply.get('reply', '')
                 oldReplies = [r for r in oldReplies if r.get('reply') != text]
+
             # Create
             elif not reply.get('user'):
                 reply['user'] = self.user
                 reply['created'] = self.date
                 oldReplies.append(reply)
+
+                # Auto-subscribe reply user
+                self.subscribe(override=False)
+
+                # Notify
+                auto = reply.get('auto', None)
+                if auto == 'close':
+                    notify(InlineCommentClosed(
+                        self.context, comment=comment, reply=reply))
+                elif auto == 'open':
+                    notify(InlineCommentOpened(
+                        self.context, comment=comment, reply=reply))
+                else:
+                    notify(InlineCommentReply(
+                        self.context, comment=comment, reply=reply))
 
         comment['replies'] = oldReplies
         return comment
@@ -161,8 +214,10 @@ class Storage(object):
             reply = {}
             deleted = comment.get('deleted', False)
             if deleted:
+                reply['auto'] = 'close'
                 reply['reply'] = _('Comment closed').decode('utf-8')
             else:
+                reply['auto'] = 'open'
                 reply['reply'] = _('Comment reopened').decode('utf-8')
             comment.setdefault('replies', [])
             comment['replies'].append(reply)
@@ -171,6 +226,8 @@ class Storage(object):
 
         oid = comment.get('id')
         self._comments[oid] = PersistentDict(comment)
+
+        notify(InlineCommentModified(self.context, comment=comment))
         return comment
 
     def delete(self, comment):
@@ -189,4 +246,25 @@ class Storage(object):
         if comment.get('deleted', None) is not None:
             return self.edit(comment, delete=True)
 
+        notify(InlineCommentDeleted(self.context, comment=comment))
         return self._comments.pop(oid)
+    #
+    # Notifications
+    #
+    def subscribe(self, override=True):
+        """ Subscribe to inline comments notifications
+        """
+        user = self.user.get('id')
+        if override:
+            self._subscribers[user] = True
+        else:
+            self._subscribers.setdefault(user, True)
+
+    def unsubscribe(self, override=True):
+        """ Un-subscribe user from inline comments notifications
+        """
+        user = self.user.get('id')
+        if override:
+            self._subscribers[user] = False
+        else:
+            self._subscribers.setdefault(user, False)
