@@ -118,7 +118,7 @@
   <adapter
     for="eea.annotator.interfaces.IAnnotatorAware"
     provides="plone.stringinterp.interfaces.IStringSubstitution"
-    factory=".adapters.UserEmail"
+    factory=".adapters.UsersEmails"
     name="icomment_users_emails"
     />
 
@@ -134,6 +134,13 @@
     provides="plone.stringinterp.interfaces.IStringSubstitution"
     factory=".adapters.Quote"
     name="icomment_quote"
+    />
+
+  <adapter
+    for="eea.annotator.interfaces.IAnnotatorAware"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.UserId"
+    name="icomment_user_id"
     />
 
   <adapter
@@ -155,6 +162,13 @@
     provides="plone.stringinterp.interfaces.IStringSubstitution"
     factory=".adapters.ReplyTitle"
     name="ireply_title"
+    />
+
+  <adapter
+    for="eea.annotator.interfaces.IAnnotatorAware"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.ReplyUserId"
+    name="ireply_user_id"
     />
 
   <adapter

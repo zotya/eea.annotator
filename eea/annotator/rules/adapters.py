@@ -154,6 +154,13 @@ class Quote(CommentSubstitution):
     description = _(u'Inline commented text')
     attribute = u'quote'
 
+class UserId(CommentSubstitution):
+    """ Inline commented user
+    """
+    category = _(u'Inline comments')
+    description = _(u'Inline comment user id')
+    attribute = u'userId'
+
 class UserName(CommentSubstitution):
     """ Inline commented user
     """
@@ -174,6 +181,13 @@ class ReplyTitle(CommentSubstitution):
     category = _(u'Inline comments')
     description = _(u'Inline comment reply')
     attribute = u'replyTitle'
+
+class ReplyUserId(CommentSubstitution):
+    """ Inline comment reply user name
+    """
+    category = _(u'Inline comments')
+    description = _(u'Inline comment reply user id')
+    attribute = u'replyUserId'
 
 class ReplyUserName(CommentSubstitution):
     """ Inline comment reply user name
