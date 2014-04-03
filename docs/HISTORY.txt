@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.3-dev - (unreleased)
+----------------------
+* Feature: Notify users by email on inline comments add/reply/close/re-open
+  [voineali refs  #19096]
+
 2.2-dev - (unreleased)
 ----------------------
 * Bug fix: Fixed word matching when multiple tinymce instances are present
