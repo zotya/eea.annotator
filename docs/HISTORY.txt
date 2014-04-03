@@ -3,7 +3,8 @@ Changelog
 
 2.3-dev - (unreleased)
 ----------------------
-* Feature: Notify users by email on inline comments add/reply/close/re-open
+* Feature: Possibility to define custom content-rules based on inline comments
+  events: add/reply/close/re-open/delete
   [voineali refs  #19096]
 
 2.2-dev - (unreleased)

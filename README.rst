@@ -27,6 +27,8 @@ Main features
    content types.
 3. Workflow aware. Possibility to enable/disable inline comments only
    for certain workflow states (via content rules).
+4. Events. Possibility to define custom content-rules based on inline
+   comments events: add/reply/close/re-open/delete (e.g. notify users by e-mail)
 4. Dexterity aware. It works also with dexterity content-types.
 5. Contextually disable inline comments.
 6. Moderate inline comments.
