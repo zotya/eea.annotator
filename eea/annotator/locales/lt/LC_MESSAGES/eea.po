@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-02-25 17:15+0000\n"
+"POT-Creation-Date: 2014-04-04 15:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ../../annotator/portlets/annotator.py:46
+#: ../../annotator/portlets/annotator.py:47
 msgid "Add Inline comments (Annotator) portlet"
 msgstr ""
 
@@ -27,7 +27,7 @@ msgid "Auto-refresh inline comments"
 msgstr ""
 
 #: ../../annotator/browser/zpt/moderate-comment.pt:52
-#: ../../annotator/browser/zpt/moderate-comments.pt:38
+#: ../../annotator/browser/zpt/moderate-comments.pt:42
 msgid "By"
 msgstr ""
 
@@ -35,23 +35,23 @@ msgstr ""
 msgid "Changes saved."
 msgstr ""
 
-#: ../../annotator/browser/zpt/moderate-comments.pt:72
+#: ../../annotator/browser/zpt/moderate-comments.pt:76
 msgid "Close"
 msgstr ""
 
-#: ../../annotator/browser/zpt/moderate-comments.pt:41
+#: ../../annotator/browser/zpt/moderate-comments.pt:45
 msgid "Closed"
 msgstr ""
 
-#: ../../annotator/browser/zpt/moderate-comments.pt:37
+#: ../../annotator/browser/zpt/moderate-comments.pt:41
 msgid "Comment"
 msgstr ""
 
-#: ../../annotator/storage/handler.py:164
+#: ../../annotator/storage/handler.py:218
 msgid "Comment closed"
 msgstr ""
 
-#: ../../annotator/storage/handler.py:166
+#: ../../annotator/storage/handler.py:221
 msgid "Comment reopened"
 msgstr ""
 
@@ -63,6 +63,14 @@ msgstr ""
 msgid "Comments deleted"
 msgstr ""
 
+#: ../../annotator/browser/app/subscription.py:32
+msgid "Couldn't subscribe you to inline comments notifications"
+msgstr ""
+
+#: ../../annotator/browser/app/subscription.py:46
+msgid "Couldn't unsubscribe you from inline comments notifications"
+msgstr ""
+
 #: ../../annotator/browser/zpt/moderate-comment.pt:33
 msgid "Creator"
 msgstr ""
@@ -71,7 +79,7 @@ msgstr ""
 msgid "Define the auto-refresh interval in seconds of inline comments within a page. Minimum recommended 30 seconds. Use 0 to disable auto-refresh."
 msgstr ""
 
-#: ../../annotator/browser/zpt/moderate-comments.pt:73
+#: ../../annotator/browser/zpt/moderate-comments.pt:77
 msgid "Delete"
 msgstr ""
 
@@ -85,20 +93,64 @@ msgstr ""
 msgid "Do not allow editors to add inline comments on this context/page"
 msgstr ""
 
-#: ../../annotator/controlpanel/settings.py:16
+#: ../../annotator/controlpanel/settings.py:19
 msgid "EEA Annotator Settings"
 msgstr ""
 
-#: ../../annotator/controlpanel/settings.py:17
+#: ../../annotator/controlpanel/settings.py:20
 msgid "EEA Annotator settings"
 msgstr ""
 
-#: ../../annotator/portlets/annotator.py:59
+#: ../../annotator/portlets/annotator.py:60
 msgid "Edit Inline comments (Annotator) portlet"
 msgstr ""
 
 #: ../../annotator/controlpanel/interfaces.py:21
 msgid "Enable inline comments"
+msgstr ""
+
+#: ../../annotator/rules/adapters.py:182
+msgid "Inline comment reply"
+msgstr ""
+
+#: ../../annotator/rules/adapters.py:203
+msgid "Inline comment reply user email"
+msgstr ""
+
+#: ../../annotator/rules/adapters.py:196
+msgid "Inline comment reply user fullname"
+msgstr ""
+
+#: ../../annotator/rules/adapters.py:189
+msgid "Inline comment reply user id"
+msgstr ""
+
+#: ../../annotator/rules/adapters.py:147
+msgid "Inline comment title"
+msgstr ""
+
+#: ../../annotator/rules/adapters.py:175
+msgid "Inline comment user email"
+msgstr ""
+
+#: ../../annotator/rules/adapters.py:168
+msgid "Inline comment user fullname"
+msgstr ""
+
+#: ../../annotator/rules/adapters.py:161
+msgid "Inline comment user id"
+msgstr ""
+
+#: ../../annotator/rules/adapters.py:210
+msgid "Inline comment users emails. Including manual subscriptions."
+msgstr ""
+
+#: ../../annotator/rules/adapters.py:154
+msgid "Inline commented text"
+msgstr ""
+
+#: ../../annotator/rules/adapters.py:146
+msgid "Inline comments"
 msgstr ""
 
 #: ../../annotator/storage/interfaces.py:20
@@ -118,11 +170,11 @@ msgstr ""
 msgid "Moderate inline comment"
 msgstr ""
 
-#: ../../annotator/browser/zpt/moderate-comments.pt:15
+#: ../../annotator/browser/zpt/moderate-comments.pt:19
 msgid "Moderate inline comments"
 msgstr ""
 
-#: ../../annotator/browser/zpt/moderate-comments.pt:21
+#: ../../annotator/browser/zpt/moderate-comments.pt:25
 msgid "No comments to moderate."
 msgstr ""
 
@@ -130,7 +182,11 @@ msgstr ""
 msgid "No replies, yet."
 msgstr ""
 
-#: ../../annotator/browser/zpt/moderate-comments.pt:39
+#: ../../annotator/portlets/annotator.pt:9
+msgid "Notify me on comments updates"
+msgstr ""
+
+#: ../../annotator/browser/zpt/moderate-comments.pt:43
 msgid "On text"
 msgstr ""
 
@@ -138,7 +194,7 @@ msgstr ""
 msgid "Persons responsible for creating this comment"
 msgstr ""
 
-#: ../../annotator/portlets/annotator.py:21
+#: ../../annotator/portlets/annotator.py:22
 msgid "Porlet title"
 msgstr ""
 
@@ -147,7 +203,7 @@ msgstr ""
 msgid "Read-only inline comments"
 msgstr ""
 
-#: ../../annotator/browser/zpt/moderate-comments.pt:42
+#: ../../annotator/browser/zpt/moderate-comments.pt:46
 msgid "Replies"
 msgstr ""
 
@@ -156,16 +212,29 @@ msgid "Reply"
 msgstr ""
 
 #: ../../annotator/browser/zpt/moderate-comment.pt:16
+#: ../../annotator/browser/zpt/moderate-comments.pt:15
 msgid "Return"
 msgstr ""
 
 #: ../../annotator/browser/zpt/moderate-comment.pt:49
-#: ../../annotator/browser/zpt/moderate-comments.pt:35
+#: ../../annotator/browser/zpt/moderate-comments.pt:39
 msgid "Select all"
 msgstr ""
 
 #: ../../annotator/browser/zpt/moderate-comment.pt:39
 msgid "Select replies to be deleted"
+msgstr ""
+
+#: ../../annotator/portlets/annotator.pt:16
+msgid "Stop notifying me on comments updates"
+msgstr ""
+
+#: ../../annotator/browser/app/subscription.py:35
+msgid "Successfully subscribed you to inline comments notifications"
+msgstr ""
+
+#: ../../annotator/browser/app/subscription.py:50
+msgid "Successfully unsubscribed you from inline comments notifications"
 msgstr ""
 
 #: ../../annotator/browser/zpt/moderate-comment.pt:27
@@ -176,16 +245,16 @@ msgstr ""
 msgid "Text of the comment"
 msgstr ""
 
-#: ../../annotator/portlets/annotator.py:47
+#: ../../annotator/portlets/annotator.py:48
 msgid "This portlet traces all inline comments for this document"
 msgstr ""
 
-#: ../../annotator/portlets/annotator.py:22
+#: ../../annotator/portlets/annotator.py:23
 msgid "Title of the portlet. Leave empty if you don't want to display a title for this portlet"
 msgstr ""
 
 #: ../../annotator/browser/zpt/moderate-comment.pt:53
-#: ../../annotator/browser/zpt/moderate-comments.pt:40
+#: ../../annotator/browser/zpt/moderate-comments.pt:44
 msgid "When"
 msgstr ""
 
