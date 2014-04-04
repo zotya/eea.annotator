@@ -7,14 +7,14 @@
 
   <dt class="portletHeader" tal:condition="view/data/label|nothing">
     <a class="annotator-subscription-button"
-       title="Subscribe to inline comments notifications"
+       title="Notify me on comments updates"
        tal:condition="view/can_subscribe"
        tal:attributes="href string:${context/absolute_url}/subscribe-inline-comments"
        i18n:attributes="title">
       <span class="eea-icon eea-icon-envelope-o"></span>
     </a>
     <a class="annotator-subscription-button"
-       title="Unsubscribe from inline comments notifications"
+       title="Stop notifying me on comments updates"
        tal:condition="view/can_unsubscribe"
        tal:attributes="href string:${context/absolute_url}/unsubscribe-inline-comments"
        i18n:attributes="title">
