@@ -10,6 +10,7 @@ from zope.component.hooks import getSite
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.CMFCore.utils import getToolByName
 from eea.annotator.interfaces import IAnnotatorStorage
 from eea.annotator.controlpanel.interfaces import ISettings
 from eea.annotator.config import EEAMessageFactory as _
@@ -66,10 +67,51 @@ class Renderer(base.Renderer):
     render = ViewPageTemplateFile('annotator.pt')
 
     @property
+    def user(self):
+        """ Current user
+        """
+        if not getattr(self, '_user', None):
+            mtool = getToolByName(self.context, 'portal_membership')
+            member = mtool.getAuthenticatedMember()
+            self._user = member.getId()
+        return self._user
+
+    @property
     def moderate(self):
         """ Can moderate inline comments
         """
         if not checkPermission('eea.annotator.manage', self.context):
+            return False
+        return True
+
+    @property
+    def can_subscribe(self):
+        """ Is current user subscribed
+        """
+        if not checkPermission('eea.annotator.view', self.context):
+            return False
+
+        storage = queryAdapter(self.context, IAnnotatorStorage)
+        if not storage:
+            return False
+
+        subscribed = storage.subscribers.get(self.user, False)
+        if not subscribed:
+            return True
+        return False
+
+    @property
+    def can_unsubscribe(self):
+        """ Is current user subscribed
+        """
+        if not checkPermission('eea.annotator.view', self.context):
+            return False
+
+        storage = queryAdapter(self.context, IAnnotatorStorage)
+        if not storage:
+            return False
+
+        if self.can_subscribe:
             return False
         return True
 

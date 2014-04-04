@@ -26,6 +26,22 @@
     />
 
   <browser:page
+    name="subscribe-inline-comments"
+    for="eea.annotator.interfaces.IAnnotatorAware"
+    layer="eea.annotator.interfaces.ILayer"
+    class=".app.subscription.Subscribe"
+    permission="eea.annotator.view"
+    />
+
+  <browser:page
+    name="unsubscribe-inline-comments"
+    for="eea.annotator.interfaces.IAnnotatorAware"
+    layer="eea.annotator.interfaces.ILayer"
+    class=".app.subscription.Unsubscribe"
+    permission="eea.annotator.view"
+    />
+
+  <browser:page
     name="annotator.api"
     for="eea.annotator.interfaces.IAnnotatorAware"
     layer="eea.annotator.interfaces.ILayer"

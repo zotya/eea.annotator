@@ -3,9 +3,13 @@ Changelog
 
 2.3-dev - (unreleased)
 ----------------------
+* Feature: Add subscription buttons to "Inline comment" portlet in order to
+  let users with "eea.annotator.view" permission to subscribe or unsubscribe
+  to inline comments notifications
+  [voineali refs #19096]
 * Feature: Possibility to define custom content-rules based on inline comments
   events: add/reply/close/re-open/delete
-  [voineali refs  #19096]
+  [voineali refs #19096]
 
 2.2-dev - (unreleased)
 ----------------------
