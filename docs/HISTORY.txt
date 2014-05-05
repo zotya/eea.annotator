@@ -3,6 +3,8 @@ Changelog
 
 2.3-dev - (unreleased)
 ----------------------
+* Change: Updated package readme with plone requirements
+  [olimpiurob]
 * Feature: Add subscription buttons to "Inline comment" portlet in order to
   let users with "eea.annotator.view" permission to subscribe or unsubscribe
   to inline comments notifications

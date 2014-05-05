@@ -29,9 +29,9 @@ Main features
    for certain workflow states (via content rules).
 4. Events. Possibility to define custom content-rules based on inline
    comments events: add/reply/close/re-open/delete (e.g. notify users by e-mail)
-4. Dexterity aware. It works also with dexterity content-types.
-5. Contextually disable inline comments.
-6. Moderate inline comments.
+5. Dexterity aware. It works also with dexterity content-types.
+6. Contextually disable inline comments.
+7. Moderate inline comments.
 
 Install
 =======
@@ -51,6 +51,13 @@ Install
   and plone.dexterity (also eea.depiction) but if you have custom traversals
   registered for these interfaces, try to use custom browser layers when
   registering them (see: eea.annotator.browser.app.traverse).
+
+**Plone version dependency**
+
+eea.annotator does not have a hard dependency on Plone 4.3, however, it has
+been built around plone.app.jquery version 1.7.2 which is shipped by default
+with Plone 4.3. If you wish to use the product on an older version of Plone,
+you could pin the plone.app.jquery version to 1.7.2.
 
 Getting started
 ===============
