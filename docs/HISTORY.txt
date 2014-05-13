@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.3-dev - (unreleased)
+2.2-dev - (unreleased)
 ----------------------
 * Change: Updated package readme with plone requirements
   [olimpiurob]
@@ -12,9 +12,6 @@ Changelog
 * Feature: Possibility to define custom content-rules based on inline comments
   events: add/reply/close/re-open/delete
   [voineali refs #19096]
-
-2.2-dev - (unreleased)
-----------------------
 * Bug fix: Fixed word matching when multiple tinymce instances are present
   [olimpiurob refs #18945]
 
