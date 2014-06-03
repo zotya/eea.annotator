@@ -3,6 +3,9 @@ Changelog
 
 2.3-dev - (unreleased)
 ----------------------
+* Change: prefixed css for hover state of accordion header to the
+  eea-accordion-title class
+  [ichim-david refs #19875]
 
 2.2 - (2014-05-13)
 ------------------
