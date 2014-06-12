@@ -3,6 +3,19 @@ Changelog
 
 2.3-dev - (unreleased)
 ----------------------
+* Upgrade step: (optional) Within "Plone > Site setup > EEA Annotator Settings"
+  customize "Minimum number of words" and "Do not allow duplicates"
+  [voineali refs #19978]
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Annotator
+  [voineali refs #19978]
+* Feature: Possibility to restrict minimum number of selected words on which
+  a user can add an inline comment
+  [voineali refs #19978]
+* Feature: Possibility to disable duplicate selections while adding an inline
+  comment in order to avoid miss-matching in edit mode
+  [voineali refs #19978]
+
 
 2.2 - (2014-05-13)
 ------------------
