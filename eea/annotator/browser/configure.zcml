@@ -73,7 +73,7 @@
   <browser:viewlet
     name="eea.annotator"
     layer="eea.annotator.interfaces.ILayer"
-    manager="plone.app.layout.viewlets.interfaces.IContentViews"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
     class=".app.viewlet.Annotator"
     permission="zope2.View"
     />
