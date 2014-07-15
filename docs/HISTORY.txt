@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.4-dev - (unreleased)
-----------------------
+2.4 - (2014-07-15)
+------------------
 * Change viewlet manager from IContentViews to IAboveContentTitle as the former
   is available only when the green Plone bar is visible (i.e. when member has
   Contributor rights). In cases where we want to provide Authenticated members
