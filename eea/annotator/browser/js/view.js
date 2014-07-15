@@ -195,6 +195,8 @@ EEA.Annotator = function(context, options){
   self.settings = {
     readOnly: self.context.data('readonly') || 0,
     autoSync: self.context.data('autosync') || 0,
+    noDuplicates: self.context.data('noduplicates') || false,
+    minWords: self.context.data('minwords') || 0,
     history: true,
     worker: '',
     prefix: '',
@@ -258,7 +260,9 @@ EEA.Annotator.prototype = {
     // Init annotator
     self.target.annotator({
       readOnly: Boolean(self.settings.readOnly),
-      exactMatch: true
+      exactMatch: true,
+      noDuplicates: Boolean(self.settings.noDuplicates),
+      minWords: parseInt(self.settings.minWords, 10)
     });
 
     // Add comment date

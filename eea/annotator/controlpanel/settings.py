@@ -71,3 +71,29 @@ class ControlPanelAdapter(SchemaAdapterBase):
         if ctype not in self.portalTypes:
             return True
         return False
+
+    @property
+    def minWords(self):
+        """ Minimum number of words to comment on
+        """
+        name = u"minWords"
+        return getattr(self.settings, name, ISettings[name].default)
+
+    @minWords.setter
+    def minWords(self, value):
+        """ Set Minimum number of words to comment on
+        """
+        self.settings.minWords = value
+
+    @property
+    def noDuplicates(self):
+        """ Don't allow duplicates
+        """
+        name = u"noDuplicates"
+        return getattr(self.settings, name, ISettings[name].default)
+
+    @noDuplicates.setter
+    def noDuplicates(self, value):
+        """ Set whether or not to allow duplicates
+        """
+        self.settings.noDuplicates = value

@@ -60,6 +60,18 @@ class Annotator(common.ViewletBase):
         return self.settings.autoSync
 
     @property
+    def minWords(self):
+        """ Minimum words to be selectable
+        """
+        return self.settings.minWords or 0
+
+    @property
+    def noDuplicates(self):
+        """ Don't allow duplicates
+        """
+        return self.settings.noDuplicates or False
+
+    @property
     def available(self):
         """ Available
         """
