@@ -1,6 +1,9 @@
 Changelog
 =========
 
+2.5-dev - (unreleased)
+----------------------
+
 2.4 - (2014-07-15)
 ------------------
 * Change viewlet manager from IContentViews to IAboveContentTitle as the former
