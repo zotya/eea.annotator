@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-04-04 15:19+0000\n"
+"POT-Creation-Date: 2014-08-06 13:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,6 +91,10 @@ msgstr ""
 msgid "Disable inline comments"
 msgstr ""
 
+#: ../../annotator/controlpanel/interfaces.py:51
+msgid "Do not allow duplicates"
+msgstr ""
+
 #: ../../annotator/rules/interfaces.py:12
 #: ../../annotator/subtypes/schema.py:32
 msgid "Do not allow editors to add inline comments on this context/page"
@@ -110,6 +114,14 @@ msgstr ""
 
 #: ../../annotator/controlpanel/interfaces.py:21
 msgid "Enable inline comments"
+msgstr ""
+
+#: ../../annotator/controlpanel/interfaces.py:43
+msgid "Force user to select at least this number of words while adding an inline comment"
+msgstr ""
+
+#: ../../annotator/controlpanel/interfaces.py:52
+msgid "If the user selects a text that is also found elsewhere in the same page display a warning message and restrict addition on inline comment"
 msgstr ""
 
 #: ../../annotator/rules/adapters.py:182
@@ -167,6 +179,10 @@ msgstr ""
 #: ../../annotator/rules/interfaces.py:17
 #: ../../annotator/subtypes/schema.py:43
 msgid "Make inline comments read-only"
+msgstr ""
+
+#: ../../annotator/controlpanel/interfaces.py:42
+msgid "Minimum number of words"
 msgstr ""
 
 #: ../../annotator/browser/zpt/moderate-comment.pt:20

@@ -3,6 +3,8 @@ Changelog
 
 2.5-dev - (unreleased)
 ----------------------
+* Bug fix: Include i18n translations
+  [avoinea]
 
 2.4 - (2014-07-15)
 ------------------
