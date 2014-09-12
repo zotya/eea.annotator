@@ -3,6 +3,12 @@ Changelog
 
 2.6-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Annotator
+  [voineali refs #21042]
+* Bug fix: Do not allow edit for comments that are not yet added which leaded in
+  having comments without id and creation date.
+  [voineali refs #21042]
 
 2.5 - (2014-08-12)
 ------------------

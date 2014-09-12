@@ -131,6 +131,17 @@ class Storage(object):
     #
     # Inline comments
     #
+    def generateUniqueId(self, comment):
+        """
+        :param comment: A json string or a dict
+        :return: md5 hex digest
+        """
+        return hashlib.md5(
+            comment.encode('utf-8')
+            if isinstance(comment, (str, unicode))
+            else repr(comment)
+        ).hexdigest()
+
     def get(self, name, default=None):
         """ Get item by name
         """
@@ -142,8 +153,7 @@ class Storage(object):
         if isinstance(comment, str):
             comment = comment.decode('utf-8')
 
-        oid = hashlib.md5(comment.encode('utf-8')
-            if isinstance(comment, unicode) else repr(comment)).hexdigest()
+        oid = self.generateUniqueId(comment)
         if isinstance(comment, unicode):
             comment = json.loads(comment)
 
@@ -207,7 +217,13 @@ class Storage(object):
         if isinstance(comment, unicode):
             comment = json.loads(comment)
 
+        oid = comment.get('id')
+        if not oid or oid not in self.comments:
+            raise KeyError(oid)
+
         comment['updated'] = self.date
+        if not comment.get('created'):
+            comment['created'] = comment['updated']
 
         # Preserve history for comment's close/reopen
         if delete:
@@ -224,7 +240,6 @@ class Storage(object):
 
         comment = self.replies(comment)
 
-        oid = comment.get('id')
         self._comments[oid] = PersistentDict(comment)
 
         notify(InlineCommentModified(self.context, comment=comment))
