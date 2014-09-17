@@ -8,7 +8,7 @@
     <implements interface="eea.annotator.interfaces.IAnnotatorAware" />
   </class>
 
-  <class class="plone.dexterity.content.Container"
+  <class class="plone.dexterity.content.DexterityContent"
     zcml:condition="installed plone.app.dexterity">
     <implements interface="eea.annotator.interfaces.IDexterityAnnotatorAware" />
   </class>
