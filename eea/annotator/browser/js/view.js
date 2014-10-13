@@ -587,6 +587,9 @@ jQuery(document).ready(function(){
   var items = jQuery(".eea-annotator");
   if(items.length){
     var baseurl = jQuery('base').attr('href');
+    if(!baseurl){
+      baseurl = jQuery('body').data('base-url');
+    }
     if(baseurl.endsWith("/")){
       baseurl = baseurl.substring(0, baseurl.length - 1);
     }
