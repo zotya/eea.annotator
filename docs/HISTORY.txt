@@ -1,8 +1,10 @@
 Changelog
 =========
 
-2.7-dev - (unreleased)
+3.0-dev - (unreleased)
 ----------------------
+* Feature: Plone 5 compatible
+  [avoinea]
 
 2.6 - (2014-09-15)
 ------------------
