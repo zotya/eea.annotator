@@ -1,6 +1,7 @@
 /* CSS */
 .eea-annotator {
   float: right;
+  margin-top: -2em;
 }
 
 #content .eea-annotator .annotator-button,
