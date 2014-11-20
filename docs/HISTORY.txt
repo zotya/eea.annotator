@@ -1,6 +1,9 @@
 Changelog
 =========
 
+3.1-dev - (unreleased)
+----------------------
+
 3.0 - (2014-11-20)
 ------------------
 * Change: prefixed css for hover state of accordion header to the
