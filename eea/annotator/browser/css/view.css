@@ -126,11 +126,11 @@ dl.portlet dd.annotator-portlet-body {
   font-weight: bold;
 }
 
-.eea-accordion-panel > h2 .eea-icon:before {
+.eea-accordion-panel > h2 .eea-icon-right:before {
   content: "\f053";
 }
 
-.eea-accordion-panel h2:hover > .eea-icon:before,
+.eea-accordion-panel h2:hover > .eea-icon-right:before,
 .eea-accordion-panel .eea-accordion-title.current > .eea-icon:before {
     content: "\f078";
 }
