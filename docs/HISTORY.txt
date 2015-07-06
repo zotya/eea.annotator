@@ -1,8 +1,8 @@
 Changelog
 =========
 
-3.2.dev0 - (unreleased)
------------------------
+3.2 - (2015-07-06)
+------------------
 * Change: updated accordion eea-icon override with latest changes from eea.design
   [ichimdav refs #26378]
 
