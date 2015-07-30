@@ -131,6 +131,6 @@ dl.portlet dd.annotator-portlet-body {
 }
 
 .eea-accordion-panel h2:hover > .eea-icon-right:before,
-.eea-accordion-panel .eea-accordion-title.current > .eea-icon:before {
+.eea-accordion-panel .eea-accordion-title.current > .eea-icon-right:before {
     content: "\f078";
 }
