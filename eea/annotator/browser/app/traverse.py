@@ -9,13 +9,10 @@ from eea.annotator.interfaces import ILayer
 from ZPublisher.BaseRequest import DefaultPublishTraverse
 from plone.app.imaging.interfaces import IBaseObject
 
-logger = logging.getLogger('eea.annotator')
-
 try:
     from eea.depiction import traverse
     ScaleTraverser = traverse.ScaleTraverser
 except (ImportError, AttributeError), err:
-    logger.debug(err)
     from plone.app.imaging.traverse import ImageTraverser as ScaleTraverser
 
 try:
@@ -24,7 +21,6 @@ try:
     from plone.dexterity.browser import traversal
     DexterityPublishTraverse = traversal.DexterityPublishTraverse
 except (ImportError, AttributeError), err:
-    logger.debug(err)
     DexterityPublishTraverse = ScaleTraverser
     class IDexterityContent(Interface):
         """ Fallback
@@ -32,6 +28,9 @@ except (ImportError, AttributeError), err:
 
 from eea.annotator.interfaces import IAnnotatorAware
 from eea.annotator.browser.interfaces import IAnnotatorAPI
+
+logger = logging.getLogger('eea.annotator')
+
 #
 # IAnnotatorAware Archetypes
 #

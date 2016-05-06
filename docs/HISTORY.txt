@@ -3,7 +3,9 @@ Changelog
 
 3.4.dev0 - (unreleased)
 -----------------------
-
+* Bug: Fix pylint warnings
+  [chiridra refs #71940]
+  
 3.3 - (2015-08-18)
 ------------------
 * Change: updated accordion eea-icon override with latest changes from eea.design
