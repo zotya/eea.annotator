@@ -126,7 +126,7 @@ class Renderer(base.Renderer):
     def disabled(self):
         """ Check if inline comments are disabled for current context
         """
-        context_type = getattr(self.context, 'portal_type', '')
+        context_type = getattr(self.context, 'portal_type', None)
         settings = queryUtility(IRegistry).forInterface(ISettings, None)
         enabled_types = settings.portalTypes if settings else None
         if isinstance(enabled_types, list) and context_type in enabled_types:
