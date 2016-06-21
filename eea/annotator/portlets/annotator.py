@@ -1,5 +1,6 @@
 """ Portlets
 """
+from z3c.form import field
 from zope import schema
 from zope.component import getMultiAdapter
 from zope.component import queryAdapter
@@ -8,6 +9,12 @@ from zope.interface import implements
 from zope.security import checkPermission
 
 from plone.app.portlets.portlets import base
+try:
+    # Plone 4
+    from plone.app.portlets.browser import z3cformhelper as base_
+except ImportError:
+    # Plone 5
+    base_ = base
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
@@ -45,10 +52,11 @@ class Assignment(base.Assignment):
         return self.label or u'Inline comments'
 
 
-class AddForm(base.AddForm):
+class AddForm(base_.AddForm):
     """ Add portlet
     """
-    schema = IAnnotatorPortlet
+    schema = IAnnotatorPortlet  # this is for Plone 5
+    fields = field.Fields(IAnnotatorPortlet)  # this is for Plone 4
     label = _(u"Add Inline comments (Annotator) portlet")
     description = _(
         u"This portlet traces all inline comments for this document")
@@ -59,10 +67,11 @@ class AddForm(base.AddForm):
         return Assignment(label=data.get('label', _(u'Inline comments')))
 
 
-class EditForm(base.EditForm):
+class EditForm(base_.EditForm):
     """ Portlet edit
     """
     schema = IAnnotatorPortlet
+    fields = field.Fields(IAnnotatorPortlet)
     label = _(u"Edit Inline comments (Annotator) portlet")
     description = _(
         u"This portlet traces all inline comments for this document")
