@@ -3,6 +3,9 @@ Changelog
 
 3.5.dev0 - (unreleased)
 -----------------------
+* Change: Migrate configlet, portlet and rule from formlib to z3c.form
+  [davilima6]
+
 * Bug fix: Update classifiers, not Plone 5 compatible yet
   [davilima6]
 
