@@ -13,7 +13,7 @@
       name="install-base"
       title="EEA Annotator (install base)"
       directory="profiles/install-base"
-      description="EEA Annotator Base Profile: do not install directly"
+      description="EEA Annotator Base Profile: do not run this directly"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
@@ -36,11 +36,31 @@
       />
 
   <genericsetup:registerProfile
-      name="uninstall"
+      name="uninstall-base"
       title="EEA Annotator - uninstall"
-      directory="profiles/uninstall"
-      description="EEA Annotator uninstall"
+      directory="profiles/uninstall-base"
+      description="EEA Annotator uninstall base: do not run this directly"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+
+  <genericsetup:registerProfile
+      zcml:condition="not-have plone-5"
+      name="uninstall"
+      title="EEA Annotator - uninstall"
+      directory="profiles/uninstall-plone4"
+      description="EEA Annotator uninstall (Plone 4)"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
+      zcml:condition="have plone-5"
+      name="uninstall"
+      title="EEA Annotator - uninstall"
+      directory="profiles/uninstall-plone5"
+      description="EEA Annotator uninstall (Plone 5)"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <utility factory=".HiddenProfiles" name="eea.annotator" />
 
 </configure>
