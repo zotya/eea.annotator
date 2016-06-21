@@ -3,6 +3,9 @@ Changelog
 
 3.5.dev0 - (unreleased)
 -----------------------
+* Change: Add extra GS profiles to support Plone 4 and 5 in the same branch
+  [davilima6]
+
 * Change: Load resource dependencies in legacy bundle, enabling full
   compatibility with Plone 5
   [davilima6]
