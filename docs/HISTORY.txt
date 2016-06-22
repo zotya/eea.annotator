@@ -9,8 +9,8 @@ Changelog
 * Change: Add extra GS profiles to support Plone 4 and 5 in the same branch
   [davilima6]
 
-* Change: Load resource dependencies in legacy bundle, enabling full
-  compatibility with Plone 5
+* Change: Load resource dependencies in own bundle, porting render conditions
+  from Plone 4 and enabling full compatibility with Plone 5
   [davilima6]
 
 * Change: Migrate configlet, portlet and content rule from formlib to z3c.form
