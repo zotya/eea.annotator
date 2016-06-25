@@ -12,4 +12,10 @@
       permission="cmf.ManagePortal"
       />
 
+  <adapter
+      for="*"
+      provides="eea.annotator.interfaces.ISettings"
+      factory=".settings.ControlPanelAdapter"
+      />
+
 </configure>

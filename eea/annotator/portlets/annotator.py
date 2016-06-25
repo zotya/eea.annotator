@@ -4,22 +4,16 @@ from z3c.form import field
 from zope import schema
 from zope.component import getMultiAdapter
 from zope.component import queryAdapter
-from zope.component import queryUtility
 from zope.interface import implements
 from zope.security import checkPermission
-
 from plone.app.portlets.portlets import base
 try:
-    # Plone 4
-    from plone.app.portlets.browser import z3cformhelper as base_
+    from plone.app.portlets.browser import z3cformhelper as base_  # Plone 4
 except ImportError:
-    # Plone 5
-    base_ = base
+    base_ = base  # Plone 5
 from plone.portlets.interfaces import IPortletDataProvider
-from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
 from eea.annotator.config import EEAMessageFactory as _
 from eea.annotator.controlpanel.interfaces import ISettings
 from eea.annotator.interfaces import IAnnotatorStorage
@@ -132,17 +126,6 @@ class Renderer(base.Renderer):
         return True
 
     @property
-    def disabled(self):
-        """ Check if inline comments are disabled for current context
-        """
-        context_type = getattr(self.context, 'portal_type', None)
-        settings = queryUtility(IRegistry).forInterface(ISettings, None)
-        enabled_types = settings.portalTypes if settings else None
-        if isinstance(enabled_types, list) and context_type in enabled_types:
-            return False
-        return True
-
-    @property
     def available(self):
         """By default, portlets are available on view view and edit view
         """
@@ -160,7 +143,8 @@ class Renderer(base.Renderer):
         if storage and storage.disabled:
             return False
 
-        if self.disabled:
+        settings = ISettings(self.context)
+        if settings.disabled:
             return False
 
         return True

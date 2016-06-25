@@ -1,6 +1,9 @@
 """ Control Panel
 """
+from zope.component import queryUtility
+from zope.interface import implementer
 from plone.app.registry.browser import controlpanel
+from plone.registry.interfaces import IRegistry
 from eea.annotator.interfaces import ISettings
 from eea.annotator.config import EEAMessageFactory as _
 
@@ -19,3 +22,29 @@ class ControlPanel(controlpanel.ControlPanelFormWrapper):
     """
 
     form = EditForm
+
+
+@implementer(ISettings)
+class ControlPanelAdapter(object):
+
+    def __init__(self, context):
+        self.context = context
+        self._settings = None
+
+    def __getattr__(self, name):
+        return getattr(self.settings, name, None)
+
+    @property
+    def settings(self):
+        if self._settings is None:
+            self._settings = queryUtility(
+                IRegistry).forInterface(ISettings, None)
+        return self._settings
+
+    @property
+    def disabled(self):
+        context_type = getattr(self.context, 'portal_type', None)
+        enabled_types = self.settings.portalTypes if self.settings else None
+        if isinstance(enabled_types, list) and context_type in enabled_types:
+            return False
+        return True
