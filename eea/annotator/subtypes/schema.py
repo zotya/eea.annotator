@@ -1,11 +1,7 @@
 """ Schema extender for Disable Autolinks for context/page
 """
 from zope.interface import implements
-from zope.component import queryAdapter
-from zope.component import queryUtility
-from zope.component.hooks import getSite
 from Products.Archetypes.public import BooleanField, BooleanWidget
-from plone.registry.interfaces import IRegistry
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from archetypes.schemaextender.interfaces import IBrowserLayerAwareExtender
 from archetypes.schemaextender.field import ExtensionField
@@ -52,18 +48,10 @@ class EEASchemaExtender(object):
     def __init__(self, context):
         self.context = context
 
-    @property
-    def disabled(self):
-        context_type = getattr(self.context, 'portal_type', None)
-        settings = queryUtility(IRegistry).forInterface(ISettings, None)
-        enabled_types = settings.portalTypes if settings else None
-        if isinstance(enabled_types, list) and context_type in enabled_types:
-            return False
-        return True
-
     def getFields(self):
         """ Returns provenance list field
         """
-        if not self.disabled:
+        settings = ISettings(self.context)
+        if not settings.disabled:
             return self.fields
         return ()
