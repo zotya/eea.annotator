@@ -16,9 +16,8 @@ class ISettings(Interface):
     """ Settings
 
         >>> from eea.annotator.interfaces import ISettings
-        >>> ISettings(portal).portalTypes = [u'Document', u'News Item']
         >>> ISettings(portal).portalTypes
-        [u'Document', u'News Item']
+        [u'Document']
 
     """
     aform.widget('portalTypes', CheckBoxFieldWidget)

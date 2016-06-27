@@ -2,10 +2,8 @@
 """
 from zope.component import getMultiAdapter
 from zope.component import queryAdapter
-from zope.component import queryUtility
 from zope.security import checkPermission
 from plone.app.layout.viewlets import common
-from plone.registry.interfaces import IRegistry
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from eea.annotator.interfaces import IAnnotatorStorage
@@ -26,7 +24,7 @@ class Annotator(common.ViewletBase):
         """ Settings
         """
         if self._settings is None:
-            self._settings = queryUtility(IRegistry).forInterface(ISettings, None)
+            self._settings = ISettings(self.context)
         return self._settings
 
     @property
@@ -72,16 +70,6 @@ class Annotator(common.ViewletBase):
         return self.settings.noDuplicates or False
 
     @property
-    def disabled(self):
-        """ Check if inline comments are disabled for current context
-        """
-        context_type = getattr(self.context, 'portal_type', None)
-        enabled_types = self.settings.portalTypes if self.settings else None
-        if isinstance(enabled_types, list) and context_type in enabled_types:
-            return False
-        return True
-
-    @property
     def available(self):
         """ Available
         """
@@ -98,7 +86,8 @@ class Annotator(common.ViewletBase):
         if storage and storage.disabled:
             return False
 
-        if self.disabled:
+        settings = ISettings(self.context)
+        if settings.disabled:
             return False
 
         return True
