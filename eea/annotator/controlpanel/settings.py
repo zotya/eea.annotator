@@ -9,7 +9,7 @@ from eea.annotator.config import EEAMessageFactory as _
 
 
 class EditForm(controlpanel.RegistryEditForm):
-    """Control panel edit form.
+    """ Control panel edit form
     """
 
     schema = ISettings
@@ -18,7 +18,7 @@ class EditForm(controlpanel.RegistryEditForm):
 
 
 class ControlPanel(controlpanel.ControlPanelFormWrapper):
-    """Control panel form wrapper.
+    """ Control panel form wrapper
     """
 
     form = EditForm
@@ -26,6 +26,8 @@ class ControlPanel(controlpanel.ControlPanelFormWrapper):
 
 @implementer(ISettings)
 class ControlPanelAdapter(object):
+    """ Settings adapter
+    """
 
     def __init__(self, context):
         self.context = context
@@ -36,6 +38,8 @@ class ControlPanelAdapter(object):
 
     @property
     def settings(self):
+        """ Settings
+        """
         if self._settings is None:
             self._settings = queryUtility(
                 IRegistry).forInterface(ISettings, None)
@@ -43,6 +47,8 @@ class ControlPanelAdapter(object):
 
     @property
     def disabled(self):
+        """ Check if inline comments are disabled for current context
+        """
         context_type = getattr(self.context, 'portal_type', None)
         enabled_types = self.settings.portalTypes if self.settings else None
         if isinstance(enabled_types, list) and context_type in enabled_types:

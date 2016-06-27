@@ -6,9 +6,12 @@ from zope.interface import implementer
 
 @implementer(Plone.INonInstallable)
 class HiddenProfiles(object):
+    """ Hidden profiles
+    """
 
     def getNonInstallableProfiles(self):
-        """Do not show on Plone's list of installable profiles."""
+        """ Do not show on Plone's list of installable profiles
+        """
         return [
             u'eea.annotator:install-base',
             u'eea.annotator:uninstall-base',
@@ -16,5 +19,5 @@ class HiddenProfiles(object):
 
 
 def initialize(context):
-    """Initializer called when used as a Zope 2 product.
+    """ Initializer called when used as a Zope 2 product
     """
