@@ -127,9 +127,8 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        """By default, portlets are available on view view and edit view
+        """ By default, portlets are available on view view and edit view
         """
-
         if not checkPermission('eea.annotator.view', self.context):
             return False
 
