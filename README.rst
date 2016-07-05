@@ -63,10 +63,10 @@ Getting started
 ===============
 
 1. Go to Plone Site Setup > EEA Annotator Settings and enable inline comments
-   for your content-types (default enabled for Page);
+   for your content-types (default enabled for Page).
 2. Go to your work-space within Plone Site and add a new object (Page) or user
-   an existing one;
-3. In view mode select text you want to comment on and add an inline comment;
+   an existing one.
+3. In view mode select text you want to comment on and add an inline comment.
 4. Within edit form > Settings Tab you can contextually disable inline comments.
 5. You can also add an "Inline comments" portlet in order to overview
    all inline comments on this page.
