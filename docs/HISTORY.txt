@@ -1,6 +1,9 @@
 Changelog
 =========
 
+3.6.dev0 - (unreleased)
+-----------------------
+
 3.5 - (2016-07-07)
 ------------------
 * Change: Add dual Plone 4 and 5 support for custom portlet
