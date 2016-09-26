@@ -1,8 +1,8 @@
 Changelog
 =========
 
-3.6.dev0 - (unreleased)
------------------------
+3.6 - (2016-09-26)
+------------------
 * Bug fix: Fix profiles version
   [avoinea]
 
